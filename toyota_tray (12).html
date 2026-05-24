@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toyota Oil Change Tray</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #cc0000;
+    --red-light: #ff4444;
+    --red-glow: rgba(204,0,0,0.18);
+    --bg: #0e0e0e;
+    --bg2: #161616;
+    --bg3: #1f1f1f;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --border-hover: #cc0000;
+    --text: #f0f0f0;
+    --muted: #888;
+    --muted2: #555;
+    --gold: #ffb400;
+    --green: #44cc66;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: normal;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(204,0,0,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.25s, height 0.25s, opacity 0.25s;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 8vw;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 22vw, 320px);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 8px;
+    animation: bgDrift 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgDrift {
+    from { transform: translate(-50%, -50%) scale(1); }
+    to   { transform: translate(-48%, -52%) scale(1.04); }
+  }
+
+  .hero-line {
+    width: 60px; height: 3px;
+    background: var(--red);
+    margin-bottom: 24px;
+    animation: expandLine 0.8s ease 0.2s both;
+  }
+  @keyframes expandLine {
+    from { width: 0; }
+    to   { width: 60px; }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 10vw, 130px);
+    line-height: 0.92;
+    letter-spacing: 4px;
+    color: var(--text);
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  .hero h1 span { color: var(--red); }
+
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    max-width: 460px;
+    line-height: 1.7;
+    animation: fadeUp 0.7s ease 0.35s both;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px; left: 8vw;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted2);
+    animation: fadeUp 0.7s ease 0.6s both;
+  }
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 30px; height: 1px;
+    background: var(--muted2);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { width: 30px; opacity: 0.5; }
+    50% { width: 50px; opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Floating wrench decoration */
+  .hero-wrench {
+    position: absolute;
+    right: 8vw; top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(80px, 15vw, 200px);
+    opacity: 0.06;
+    animation: wrenchFloat 6s ease-in-out infinite;
+    pointer-events: none;
+    user-select: none;
+  }
+  @keyframes wrenchFloat {
+    0%, 100% { transform: translateY(-50%) rotate(-10deg); }
+    50%       { transform: translateY(-54%) rotate(10deg); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 8vw;
+    background: rgba(14,14,14,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    animation: navSlide 0.5s ease both;
+  }
+  @keyframes navSlide {
+    from { transform: translateY(-100%); }
+    to   { transform: translateY(0); }
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--red); }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--red);
+    transition: width 0.25s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── SECTION WRAPPER ── */
+  section {
+    padding: 100px 8vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 48px;
+  }
+
+  /* ── TOOLS GRID ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .tool-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .tool-card.visible {
+    animation: cardReveal 0.5s ease forwards;
+  }
+
+  @keyframes cardReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, var(--red-glow), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .tool-card:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .tool-card:hover::before { opacity: 1; }
+
+  .tool-icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .tool-card:hover .tool-icon-wrap {
+    background: var(--red-glow);
+    border-color: var(--red);
+  }
+
+  .tool-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .tool-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .tool-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+  .tag-critical { background: rgba(204,0,0,0.15); color: #ff6666; border: 0.5px solid rgba(204,0,0,0.35); }
+  .tag-common   { background: rgba(255,180,0,0.12); color: var(--gold); border: 0.5px solid rgba(255,180,0,0.3); }
+  .tag-optional { background: rgba(68,204,102,0.12); color: var(--green); border: 0.5px solid rgba(68,204,102,0.3); }
+
+  .card-number {
+    position: absolute;
+    top: 16px; right: 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ── TORQUE SPEC ── */
+  .torque-section {
+    background: var(--bg2);
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 80px 8vw;
+  }
+
+  .torque-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .torque-display {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .torque-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 140px);
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: -2px;
+    position: relative;
+  }
+
+  .torque-num::after {
+    content: '';
+    position: absolute;
+    bottom: 8px; right: -8px;
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+
+  .torque-unit {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  .torque-bar-wrap {
+    margin-top: 24px;
+  }
+
+  .torque-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 10px;
+  }
+
+  .torque-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .torque-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--red-light));
+    border-radius: 3px;
+    width: 0;
+    transition: width 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .torque-fill.animate { width: 65%; }
+
+  .torque-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .torque-note {
+    padding: 20px 24px;
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .torque-note-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .torque-note-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SUPPLIES ── */
+  .supplies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .supply-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: border-color 0.3s, transform 0.3s;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .supply-card.visible {
+    animation: slideRight 0.5s ease forwards;
+  }
+
+  @keyframes slideRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .supply-card:hover {
+    border-color: rgba(204,0,0,0.4);
+    transform: translateX(4px);
+  }
+
+  .supply-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+    margin-top: 5px;
+    box-shadow: 0 0 8px var(--red);
+  }
+
+  .supply-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .supply-detail {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .supply-part {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--gold);
+    background: rgba(255,180,0,0.1);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  /* ── PRO TIPS ── */
+  .tips-section {
+    background: var(--bg2);
+    border-top: 0.5px solid var(--border);
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2px;
+    margin-top: 0;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .tip-item {
+    background: var(--card);
+    padding: 28px 24px;
+    transition: background 0.3s;
+    opacity: 0;
+  }
+  .tip-item.visible {
+    animation: tipFade 0.5s ease forwards;
+  }
+  @keyframes tipFade {
+    to { opacity: 1; }
+  }
+
+  .tip-item:hover { background: var(--bg3); }
+
+  .tip-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+
+  .tip-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .tip-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 48px 8vw;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+  .footer-logo span { color: var(--red); }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--muted2);
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--red);
+    margin-bottom: 20px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .torque-inner { grid-template-columns: 1fr; gap: 40px; }
+    .nav-links { display: none; }
+    .hero-wrench { display: none; }
+  }
+
+  /* ══════════════════════════════════════
+     MILWAUKEE PACKOUT BOX
+  ══════════════════════════════════════ */
+
+  /* ══ MILWAUKEE PACKOUT BOX ══ */
+  /* ══ MILWAUKEE PACKOUT BOX ══ */
+  /* ══ MILWAUKEE PACKOUT BOX ══ */
+  .packout-section {
+    background: radial-gradient(ellipse at 50% 0%, #1a1a1a 0%, #060606 80%);
+    border-top: 0.5px solid #1e1e1e;
+    border-bottom: 0.5px solid #1e1e1e;
+    padding: 100px 4vw 160px;
+  }
+  .packout-outer { display:flex; justify-content:center; }
+
+  /* ── outer shell ── */
+  .mke-box {
+    position:relative; width:580px;
+    background: linear-gradient(175deg,#e8140a 0%,#cc1008 30%,#b50d06 65%,#9a0b05 100%);
+    border-radius:12px 12px 6px 6px;
+    border-top:2.5px solid #f02515;
+    border-left:2px solid #dd1208;
+    border-right:2px solid #7a0604;
+    border-bottom:3px solid #550402;
+    box-shadow:0 1px 0 rgba(255,80,60,0.2) inset,0 80px 160px rgba(0,0,0,0.96),0 30px 60px rgba(0,0,0,0.7);
+    animation:boxDrop 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+    overflow:visible;
+  }
+  @keyframes boxDrop{from{opacity:0;transform:translateY(50px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .mke-box::before{content:'';position:absolute;inset:0;border-radius:11px 11px 5px 5px;pointer-events:none;
+    background:repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(0,0,0,0.03) 3px,rgba(0,0,0,0.03) 4px),
+               repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.025) 3px,rgba(0,0,0,0.025) 4px);}
+
+  /* ── top cap ── */
+  .mke-top-cap{
+    position:relative;height:88px;
+    background:linear-gradient(180deg,#d61009 0%,#c00e08 45%,#ae0c07 100%);
+    border-radius:11px 11px 0 0;border-bottom:3px solid #550300;
+    box-shadow:0 2px 0 rgba(255,60,40,0.12) inset;overflow:hidden;
+  }
+  .mke-top-cap::before{content:'';position:absolute;top:10px;left:14px;right:14px;height:14px;
+    background:linear-gradient(180deg,#7a0703 0%,#960905 40%,#b20d07 100%);
+    border-radius:3px;border:1px solid #550200;box-shadow:0 2px 5px rgba(0,0,0,0.55) inset;}
+  .mke-hook{position:absolute;top:5px;width:30px;height:30px;z-index:3;
+    background:linear-gradient(135deg,#252525 0%,#141414 60%,#080808 100%);
+    border:1.5px solid #080808;box-shadow:0 2px 7px rgba(0,0,0,0.85),0 1px 0 rgba(255,255,255,0.05) inset;}
+  .mke-hook.left{left:5px;border-radius:4px 4px 0 4px;}
+  .mke-hook.right{right:5px;border-radius:4px 4px 4px 0;}
+  .mke-hook::after{content:'';position:absolute;top:7px;left:7px;right:7px;height:9px;
+    background:linear-gradient(180deg,#cc0000,#7a0000);border-radius:2px;}
+  .mke-carry-handle{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:130px;height:44px;z-index:5;}
+  .mke-handle-bar{position:absolute;top:0;left:8px;right:8px;height:10px;
+    background:linear-gradient(180deg,#e8e8e8 0%,#d0d0d0 30%,#b8b8b8 70%,#888 100%);
+    border-radius:5px;border:1px solid #555;
+    box-shadow:0 3px 7px rgba(0,0,0,0.75),0 1px 0 rgba(255,255,255,0.45) inset;}
+  .mke-handle-post{position:absolute;bottom:0;width:7px;height:36px;
+    background:linear-gradient(90deg,#999 0%,#ddd 35%,#f0f0f0 55%,#bbb 80%,#777 100%);
+    border-radius:3px;box-shadow:0 2px 5px rgba(0,0,0,0.6);}
+  .mke-handle-post.l{left:16px;}.mke-handle-post.r{right:16px;}
+  .mke-logo{position:absolute;right:54px;top:28px;text-align:right;}
+  .mke-logo-text{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:#fff;font-style:italic;text-shadow:0 1px 4px rgba(0,0,0,0.55);}
+  .mke-logo-sub{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:5px;color:rgba(255,255,255,0.5);margin-top:-3px;}
+
+  /* ── rails ── */
+  .mke-rail{position:absolute;top:0;bottom:0;width:20px;z-index:10;}
+  .mke-rail.left{left:0;border-radius:12px 0 0 6px;
+    background:linear-gradient(90deg,#444 0%,#888 12%,#d8d8d8 28%,#f2f2f2 45%,#e0e0e0 58%,#aaa 78%,#555 100%);}
+  .mke-rail.right{right:0;border-radius:0 12px 6px 0;
+    background:linear-gradient(90deg,#555 0%,#aaa 20%,#e0e0e0 40%,#f0f0f0 52%,#d4d4d4 65%,#888 85%,#444 100%);}
+  .mke-rail-screw{position:absolute;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 33% 28%,#ccc 0%,#888 28%,#444 65%,#111 100%);
+    border:1px solid #0a0a0a;box-shadow:0 2px 4px rgba(0,0,0,0.9),0 0.5px 0 rgba(255,255,255,0.18) inset;}
+  .mke-rail-screw::before,.mke-rail-screw::after{content:'';position:absolute;top:50%;left:50%;background:rgba(0,0,0,0.55);border-radius:1px;}
+  .mke-rail-screw::before{width:6px;height:1.3px;transform:translate(-50%,-50%);}
+  .mke-rail-screw::after{width:1.3px;height:6px;transform:translate(-50%,-50%);}
+  .mke-rail-screw.t{top:16px;}.mke-rail-screw.m{top:50%;transform:translate(-50%,-50%);}.mke-rail-screw.b{bottom:16px;}
+
+  /* ── drawers container ── */
+  .mke-drawers{position:relative;padding:0 20px;background:linear-gradient(180deg,#b50d06 0%,#a80c05 100%);overflow:visible;}
+
+  /* ── drawer row ── */
+  .mke-drawer{
+    position:relative;height:88px;cursor:pointer;
+    border-top:2px solid #550200;border-bottom:2px solid #6a0300;
+    background:linear-gradient(180deg,#cc1008 0%,#c01008 20%,#b80e07 50%,#c21008 80%,#cc1008 100%);
+    transition:background 0.2s;
+    overflow:visible;
+    z-index:1;
+  }
+  .mke-drawer:hover{background:linear-gradient(180deg,#d81509 0%,#ca1309 50%,#d81509 100%);}
+  /* panel molding */
+  .mke-drawer::before{content:'';position:absolute;top:8px;bottom:8px;left:18px;right:18px;
+    border-radius:4px;border:1.5px solid rgba(0,0,0,0.22);
+    box-shadow:0 0 0 1px rgba(255,70,50,0.1) inset;pointer-events:none;z-index:1;}
+  .mke-drawer::after{content:'';position:absolute;top:0;left:0;right:0;height:7px;
+    background:linear-gradient(180deg,rgba(0,0,0,0.38),transparent);pointer-events:none;z-index:1;}
+  .mke-drawer.open{z-index:100;}
+
+  /* ── brand label ── */
+  .mke-drawer-label{
+    position:absolute;left:28px;top:50%;transform:translateY(-50%);
+    font-family:'Bebas Neue',sans-serif;font-size:22px;font-style:italic;letter-spacing:6px;
+    color:#ffffff !important;z-index:3;pointer-events:none;
+    text-shadow:0 2px 12px rgba(0,0,0,1),0 1px 4px rgba(0,0,0,1),0 0 24px rgba(0,0,0,0.95);
+  }
+
+  /* ── open/close arrow ── */
+  .mke-drawer-arrow{position:absolute;right:28px;top:50%;transform:translateY(-50%);
+    width:22px;height:22px;z-index:3;pointer-events:none;display:flex;align-items:center;justify-content:center;}
+  .mke-drawer-arrow::before{content:'';display:block;width:9px;height:9px;
+    border-right:2.5px solid rgba(255,255,255,0.7);border-bottom:2.5px solid rgba(255,255,255,0.7);
+    transform:rotate(45deg);transition:transform 0.35s;}
+  .mke-drawer.open .mke-drawer-arrow::before{transform:rotate(-135deg);}
+
+  /* ── black pull handle ── */
+  .mke-pull{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:220px;height:30px;z-index:2;
+    background:linear-gradient(180deg,#1c1c1c 0%,#222 20%,#171717 55%,#0e0e0e 100%);
+    border-radius:5px;
+    border-top:1.5px solid #333;border-left:1.5px solid #2a2a2a;
+    border-right:1.5px solid #0e0e0e;border-bottom:2.5px solid #040404;
+    box-shadow:0 5px 14px rgba(0,0,0,0.85) inset,0 2px 6px rgba(0,0,0,0.6),0 0 0 1px rgba(0,0,0,0.5);
+    overflow:hidden;}
+  .mke-pull::before{content:'';position:absolute;inset:4px 10px;
+    background:repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(255,255,255,0.035) 5px,rgba(255,255,255,0.035) 6px);
+    border-radius:3px;}
+  .mke-pull::after{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);border-radius:5px 5px 0 0;}
+
+  /* ══════════════════════════════════════════
+     SLIDE-OUT DRAWER PANEL
+     Slides forward (down) like real Packout
+  ══════════════════════════════════════════ */
+  .mke-slide-panel{
+    position:absolute;
+    left:-20px;right:-20px;
+    top:100%;          /* sits right below the drawer row */
+    z-index:200;
+    /* hidden by default — scaled Y to 0 from top */
+    transform-origin:top center;
+    transform:scaleY(0);
+    opacity:0;
+    pointer-events:none;
+    transition:transform 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.35s ease;
+  }
+  .mke-drawer.open .mke-slide-panel{
+    transform:scaleY(1);
+    opacity:1;
+    pointer-events:all;
+  }
+
+  /* Red shell of the pulled-out drawer */
+  .mke-slide-shell{
+    background:linear-gradient(180deg,#d41009 0%,#c01008 20%,#b00c07 80%,#9e0b06 100%);
+    border-left:3px solid #dd1208;
+    border-right:3px solid #7a0604;
+    border-bottom:4px solid #440200;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.95),0 8px 20px rgba(0,0,0,0.7),
+               0 0 0 1px rgba(0,0,0,0.5),
+               inset 0 -2px 0 rgba(255,80,60,0.1);
+    padding:14px 14px 18px;
+    position:relative;
+    overflow:visible;
+  }
+  /* top shadow lip where drawer meets shell */
+  .mke-slide-shell::before{content:'';position:absolute;top:0;left:0;right:0;height:10px;
+    background:linear-gradient(180deg,rgba(0,0,0,0.5),transparent);border-radius:0;}
+  /* bottom handle on pulled drawer */
+  .mke-slide-footer{
+    display:flex;align-items:center;justify-content:center;
+    padding:10px 0 4px;
+  }
+  .mke-slide-pull{
+    width:200px;height:26px;
+    background:linear-gradient(180deg,#1a1a1a 0%,#222 20%,#161616 55%,#0c0c0c 100%);
+    border-radius:4px;
+    border-top:1.5px solid #333;border-left:1.5px solid #282828;
+    border-right:1.5px solid #0c0c0c;border-bottom:2.5px solid #040404;
+    box-shadow:0 4px 12px rgba(0,0,0,0.85) inset,0 2px 5px rgba(0,0,0,0.6);
+    overflow:hidden;position:relative;
+  }
+  .mke-slide-pull::before{content:'';position:absolute;inset:3px 8px;
+    background:repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(255,255,255,0.03) 5px,rgba(255,255,255,0.03) 6px);}
+
+  /* ── foam insert inside pulled drawer ── */
+  .df-foam{
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='rgba(0,0,0,0.2)'/%3E%3Ccircle cx='3' cy='3' r='0.4' fill='rgba(0,0,0,0.13)'/%3E%3C/svg%3E"),
+      linear-gradient(155deg,#1a2a1c 0%,#142018 40%,#101a11 100%);
+    border-radius:8px;padding:16px 14px 12px;
+    border-top:1px solid #0a140a;border-left:1px solid #0c160c;
+    border-right:1.5px solid #101a10;border-bottom:2px solid #060e06;
+    box-shadow:0 6px 20px rgba(0,0,0,0.9) inset,0 2px 5px rgba(0,0,0,0.5) inset;
+    position:relative;overflow:visible;
+  }
+  .df-foam::before{content:'';position:absolute;top:0;left:0;right:0;height:35%;
+    border-radius:8px 8px 0 0;
+    background:linear-gradient(180deg,rgba(255,255,255,0.022) 0%,transparent 100%);pointer-events:none;}
+
+  /* ── foam grid ── */
+  .df-grid{display:grid;gap:10px;grid-template-columns:repeat(4,1fr);overflow:visible;}
+
+  /* ── slot ── */
+  .df-slot{
+    position:relative;
+    background:linear-gradient(155deg,#0e170f 0%,#090f09 60%,#060b06 100%);
+    border-radius:7px;padding:10px 6px 8px;
+    min-height:110px;display:flex;flex-direction:column;
+    align-items:center;justify-content:flex-end;
+    border-top:1px solid #090d09;border-left:1px solid #0a0e0a;
+    border-right:1.5px solid #141e14;border-bottom:2px solid #182018;
+    box-shadow:0 5px 14px rgba(0,0,0,0.92) inset,0 2px 5px rgba(0,0,0,0.7) inset,
+               0 -1px 0 rgba(255,255,255,0.03) inset,0 1px 2px rgba(20,50,20,0.3);
+    cursor:default;overflow:visible;
+    transition:box-shadow 0.28s;
+  }
+  .df-slot::before{content:'';position:absolute;inset:-2px;border-radius:8px;
+    border:2px solid rgba(30,60,30,0.35);pointer-events:none;}
+  .df-slot:hover{box-shadow:0 5px 14px rgba(0,0,0,0.92) inset,0 2px 5px rgba(0,0,0,0.7) inset,
+    0 0 16px rgba(204,0,0,0.1),0 0 0 1px rgba(204,0,0,0.25);}
+  .df-slot.wide2{grid-column:span 2;}
+  .df-slot.wide3{grid-column:span 3;}
+  .df-slot.wide4{grid-column:span 4;}
+  .df-slot.df-empty{background:linear-gradient(155deg,#0a0f0a 0%,#060906 100%);border-color:#0a0e0a;cursor:default;}
+  .df-slot.df-empty::after{content:'RESERVED';font-size:7px;letter-spacing:2px;color:#162016;
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+
+  .df-tool{display:flex;align-items:center;justify-content:center;margin-bottom:8px;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,0.95)) drop-shadow(0 2px 3px rgba(0,0,0,0.7));
+    transition:transform 0.3s cubic-bezier(0.23,1,0.32,1),filter 0.3s;transform-origin:bottom center;}
+  .df-slot:hover .df-tool{transform:translateY(-7px) scale(1.07);
+    filter:drop-shadow(0 12px 20px rgba(0,0,0,0.98)) drop-shadow(0 0 10px rgba(160,160,160,0.12));}
+
+  .df-size{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:#aaddaa;
+    text-align:center;line-height:1;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,0.9);}
+  .df-label{font-size:9px;font-weight:500;letter-spacing:0.8px;color:#6aaa6a;
+    text-align:center;line-height:1.4;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,0.9);}
+
+  .df-dot{position:absolute;top:8px;right:8px;width:6px;height:6px;border-radius:50%;border:1px solid rgba(0,0,0,0.4);}
+  .df-dot.crit{background:radial-gradient(circle at 35% 35%,#ff4444,#cc0000);box-shadow:0 0 5px 1px rgba(200,0,0,0.65);}
+  .df-dot.comm{background:radial-gradient(circle at 35% 35%,#ffcc44,#cc8800);box-shadow:0 0 5px 1px rgba(200,130,0,0.65);}
+  .df-dot.opt{background:radial-gradient(circle at 35% 35%,#66ee88,#22aa44);box-shadow:0 0 5px 1px rgba(30,160,60,0.65);}
+
+  .df-legend{display:flex;gap:18px;justify-content:center;margin-top:14px;}
+  .df-leg-item{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#2e4e2e;}
+  .df-leg-dot{width:6px;height:6px;border-radius:50%;}
+
+  /* ── base ── */
+  .mke-base{height:26px;border-radius:0 0 5px 5px;
+    background:linear-gradient(180deg,#8a0804 0%,#6e0603 50%,#560502 100%);
+    border-top:2px solid #3a0200;
+    display:flex;align-items:center;justify-content:space-between;padding:0 18px;overflow:hidden;}
+  .mke-latch{width:38px;height:20px;background:linear-gradient(180deg,#222 0%,#111 100%);
+    border-radius:0 0 4px 4px;border:1.5px solid #080808;border-top:none;
+    box-shadow:0 2px 5px rgba(0,0,0,0.6);flex-shrink:0;}
+  .mke-latch::after{content:'';display:block;margin:3px 5px;height:9px;background:linear-gradient(180deg,#cc0000,#880000);border-radius:2px;}
+  .mke-base-center{flex:1;height:7px;margin:0 12px;
+    background:repeating-linear-gradient(90deg,#6a0a02,#6a0a02 8px,#5a0801 8px,#5a0801 16px);
+    border-radius:2px;border:1px solid #3e0500;}
+  .mke-feet{position:absolute;bottom:-9px;left:0;right:0;display:flex;justify-content:space-between;padding:0 42px;}
+  .mke-foot{width:48px;height:10px;background:linear-gradient(180deg,#1a1a1a,#080808);
+    border-radius:0 0 6px 6px;border:1.5px solid #060606;border-top:none;box-shadow:0 4px 10px rgba(0,0,0,0.85);}
+
+  @media(max-width:640px){.mke-box{width:100%;}.mke-pull{width:140px;}.df-grid{grid-template-columns:repeat(2,1fr);}.df-slot.wide2,.df-slot.wide3,.df-slot.wide4{grid-column:span 2;}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<nav>
+  <div class="nav-logo">TOOL<span>TRAY</span></div>
+  <div class="nav-links">
+    <a href="#packout">Tray</a>
+    <a href="#tools">Tools</a>
+    <a href="#torque">Torque</a>
+    <a href="#supplies">Supplies</a>
+    <a href="#tips">Pro Tips</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">OIL CHANGE</div>
+  <div class="hero-badge">Professional Series</div>
+  <div class="hero-line"></div>
+  <h1>OIL CHANGE<br><span>TRAY</span></h1>
+  <p class="hero-sub">Every tool you need, organized by priority. Built for speed. No guessing, no wasted time — grab the tray and get to work.</p>
+  <div class="hero-scroll">Scroll to explore</div>
+  <div class="hero-wrench">🔧</div>
+</section>
+
+<!-- PACKOUT TRAY -->
+<div class="packout-section" id="packout">
+  <div class="section-label">Visual Layout — Click Any Drawer</div>
+  <h2 class="section-title">THE PACKOUT BOX</h2>
+  <div class="packout-outer">
+    <div class="mke-box">
+      <div class="mke-top-cap">
+        <div class="mke-hook left"></div>
+        <div class="mke-hook right"></div>
+        <div class="mke-carry-handle">
+          <div class="mke-handle-post l"></div>
+          <div class="mke-handle-post r"></div>
+          <div class="mke-handle-bar"></div>
+        </div>
+        <div class="mke-logo">
+          <div class="mke-logo-text">Milwaukee</div>
+          <div class="mke-logo-sub">PACKOUT</div>
+        </div>
+      </div>
+      <div class="mke-rail left">
+        <div class="mke-rail-screw t"></div>
+        <div class="mke-rail-screw m"></div>
+        <div class="mke-rail-screw b"></div>
+      </div>
+      <div class="mke-rail right">
+        <div class="mke-rail-screw t"></div>
+        <div class="mke-rail-screw m"></div>
+        <div class="mke-rail-screw b"></div>
+      </div>
+      <div class="mke-drawers">
+        
+        <div class="mke-drawer" onclick="toggleDrawer(this)">
+          <div class="mke-drawer-label">CHEVROLET</div>
+          <div class="mke-pull"></div>
+          <div class="mke-drawer-arrow"></div>
+          <div class="mke-slide-panel">
+            <div class="mke-slide-shell">
+              <div class="df-foam">
+                <div class="df-grid">
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smc1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sfc1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smc1)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sfc1)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">15mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smc1)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">15mm</div><div class="df-label">Drain Plug<br>Socket</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh38b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0c0c0"/><stop offset="20%" stop-color="#e8e8e8"/><stop offset="50%" stop-color="#f4f4f4"/><stop offset="80%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#888"/></linearGradient><linearGradient id="rd38b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="38%" stop-color="#ddd"/><stop offset="65%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#777"/></linearGradient><radialGradient id="rg38b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="65%" stop-color="#161616"/><stop offset="100%" stop-color="#060606"/></radialGradient></defs><path d="M5 18.5 L102 17 L102 29 L5 30.5 Z" fill="url(#rh38b)" stroke="#444" stroke-width="0.6"/><path d="M5 18.5 L102 17 L102 19.5 L5 21 Z" fill="rgba(255,255,255,0.3)"/><line x1="32" y1="17" x2="32" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="38" y1="17" x2="38" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="44" y1="17" x2="44" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="50" y1="17" x2="50" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="56" y1="17" x2="56" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="62" y1="17" x2="62" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="68" y1="17" x2="68" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="74" y1="17" x2="74" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><ellipse cx="6" cy="24" rx="5" ry="7.5" fill="url(#rd38b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="24" rx="2.3" ry="4.2" fill="#1a1a1a"/><circle cx="124" cy="23" r="21" fill="url(#rd38b)" stroke="#333" stroke-width="1"/><circle cx="124" cy="23" r="18.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3" stroke-dasharray="3.2 2"/><circle cx="124" cy="23" r="15.5" fill="url(#rg38b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="124" cy="23" r="11.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M105 12 A21 21 0 0 1 143 12" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="118" y="5" width="12" height="5" rx="2.5" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="120" y="6" width="8" height="3" rx="1.5" fill="#d0d0d0"/><rect x="120.5" y="19" width="7" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="122.5" y="21" width="3" height="4" rx="0.5" fill="#0e0e0e"/><rect x="100.5" y="18" width="7" height="10" rx="2" fill="url(#rd38b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">3/8&quot; Drive</div><div class="df-label">Ratchet — Primary</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="22" height="54" viewBox="0 0 22 54" fill="none"><defs><linearGradient id="extt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="22%" stop-color="#b8b8b8"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="78%" stop-color="#a0a0a0"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4.5" y="1" width="13" height="9" rx="2" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="8.5" y="3.5" width="5" height="4" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.4"/><rect x="9" y="9" width="4" height="35" fill="url(#extt)" stroke="#333" stroke-width="0.5"/><rect x="9.8" y="9" width="1.5" height="35" fill="rgba(255,255,255,0.17)"/><line x1="9" y1="14" x2="13" y2="14" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="16" x2="13" y2="16" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="22" x2="13" y2="22" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="24" x2="13" y2="24" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="30" x2="13" y2="30" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="32" x2="13" y2="32" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="38" x2="13" y2="38" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><rect x="7.5" y="43" width="7" height="9.5" rx="1.5" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="9.5" y="44.5" width="3.5" height="3.5" rx="0.5" fill="#0e0e0e"/><circle cx="14.5" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">3&quot;/6&quot;</div><div class="df-label">Extension</div></div>
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="fmfc1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/><stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="fffc1" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><circle cx="22" cy="20" r="18" fill="url(#fmfc1)" stroke="#333" stroke-width="0.8"/><path d="M4 20 A18 18 0 0 0 22 38" fill="rgba(0,0,0,0.2)"/><path d="M5 16 A18 18 0 0 1 39 16" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="2.8" stroke-dasharray="3.5 2"/><circle cx="22" cy="20" r="12" fill="url(#fffc1)" stroke="#1e1e1e" stroke-width="1"/><circle cx="22" cy="20" r="9" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="4.5 2.8"/><text x="22" y="23" text-anchor="middle" font-size="5.5" font-weight="700" fill="#bbb" font-family="Bebas Neue,sans-serif">67mm</text><rect x="17.5" y="37" width="9" height="12" rx="1.5" fill="url(#fmfc1)" stroke="#333" stroke-width="0.7"/><rect x="20" y="39" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="26.5" cy="43" r="0.9" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">67mm</div><div class="df-label">Filter Cap</div></div>
+      <div class="df-slot wide2"><div class="df-dot comm"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh12b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="20%" stop-color="#d8d8d8"/><stop offset="50%" stop-color="#eee"/><stop offset="80%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="rd12b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="40%" stop-color="#d4d4d4"/><stop offset="70%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#666"/></linearGradient><radialGradient id="rg12b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#282828"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M5 15.5 L98 14 L98 32 L5 33.5 Z" fill="url(#rh12b)" stroke="#444" stroke-width="0.6"/><path d="M5 15.5 L98 14 L98 16.5 L5 18 Z" fill="rgba(255,255,255,0.26)"/><line x1="28" y1="14" x2="28" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="34" y1="14" x2="34" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="40" y1="14" x2="40" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="46" y1="14" x2="46" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="52" y1="14" x2="52" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="58" y1="14" x2="58" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="64" y1="14" x2="64" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><ellipse cx="6" cy="23" rx="5" ry="9" fill="url(#rd12b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="23" rx="2.3" ry="5" fill="#1a1a1a"/><circle cx="122" cy="23" r="23" fill="url(#rd12b)" stroke="#333" stroke-width="1.2"/><circle cx="122" cy="23" r="20.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3.5" stroke-dasharray="3.5 2.2"/><circle cx="122" cy="23" r="17" fill="url(#rg12b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="122" cy="23" r="12.5" fill="none" stroke="#1e1e1e" stroke-width="1.5" stroke-dasharray="5 3.2"/><path d="M101 12 A23 23 0 0 1 143 12" stroke="rgba(255,255,255,0.15)" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="116" y="3.5" width="12" height="5.5" rx="2.7" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="118" y="5" width="8" height="3.5" rx="1.6" fill="#d0d0d0"/><rect x="117" y="18.5" width="10" height="9" rx="1.4" fill="#909090" stroke="#555" stroke-width="0.8"/><rect x="119" y="20.5" width="6" height="5" rx="0.7" fill="#0e0e0e"/><rect x="97" y="16" width="9" height="14" rx="2" fill="url(#rd12b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">1/2&quot; Drive</div><div class="df-label">Ratchet — Heavy Duty</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="tqhh" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="30%" stop-color="#d0d0d0"/><stop offset="55%" stop-color="#e2e2e2"/><stop offset="82%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="tqdd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#aaa"/><stop offset="40%" stop-color="#d8d8d8"/><stop offset="70%" stop-color="#ccc"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="tqkk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#999"/><stop offset="40%" stop-color="#ccc"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="tqgg" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#252525"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M26 20 L106 19 L106 28 L26 29 Z" fill="url(#tqhh)" stroke="#444" stroke-width="0.6"/><path d="M26 20 L106 19 L106 21 L26 22 Z" fill="rgba(255,255,255,0.24)"/><rect x="44" y="17" width="38" height="14" rx="1.5" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="0.5"/><line x1="49" y1="20" x2="49" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="54" y1="19" x2="54" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="59" y1="20" x2="59" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="64" y1="18.5" x2="64" y2="24" stroke="#cc0000" stroke-width="1.4"/><line x1="69" y1="20" x2="69" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="74" y1="19" x2="74" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="79" y1="20" x2="79" y2="22.5" stroke="#666" stroke-width="0.7"/><text x="56" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">25</text><text x="74" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">35 ft·lb</text><ellipse cx="17" cy="23.5" rx="13" ry="10" fill="url(#tqkk)" stroke="#333" stroke-width="0.8"/><line x1="5" y1="19" x2="29" y2="19" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="21.5" x2="29" y2="21.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="24" x2="29" y2="24" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="26.5" x2="29" y2="26.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="29" x2="29" y2="29" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><ellipse cx="17" cy="23.5" rx="3.5" ry="4" fill="#0e0e0e"/><circle cx="126" cy="23.5" r="20" fill="url(#tqdd)" stroke="#333" stroke-width="1"/><circle cx="126" cy="23.5" r="17.5" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-dasharray="3.2 2"/><circle cx="126" cy="23.5" r="14.5" fill="url(#tqgg)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="126" cy="23.5" r="10.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M108 13 A20 20 0 0 1 144 13" stroke="rgba(255,255,255,0.17)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="121" y="19.5" width="9" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="123" y="21.5" width="5" height="4" rx="0.5" fill="#0e0e0e"/><rect x="104" y="18.5" width="7" height="10" rx="2" fill="url(#tqdd)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">25–35 ft·lbs</div><div class="df-label">Torque Wrench</div></div>
+      <div class="df-slot "><div class="df-dot opt"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="sww" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="28%" stop-color="#a8a8a8"/><stop offset="52%" stop-color="#c8c8c8"/><stop offset="78%" stop-color="#888"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4" y="36" width="36" height="10" rx="5" fill="url(#sww)" stroke="#2a2a2a" stroke-width="0.7"/><rect x="4" y="36.5" width="36" height="2.5" rx="1.2" fill="rgba(255,255,255,0.2)"/><line x1="12" y1="36" x2="12" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="18" y1="36" x2="18" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="24" y1="36" x2="24" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="30" y1="36" x2="30" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#4a1e06" stroke-width="8" stroke-linecap="round"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#7a3308" stroke-width="5.5" stroke-linecap="round"/><path d="M8.5 40 Q5 15 22 6.5 Q39 15 35.5 40" fill="none" stroke="rgba(200,120,60,0.5)" stroke-width="2" stroke-linecap="round"/><path d="M9 40 Q5.5 15.5 22 7 Q38.5 15.5 35 40" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="3 3.5"/><rect x="2.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/><rect x="34.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/></svg></div><div class="df-size">Strap</div><div class="df-label">Spin-On<br>Wrench</div></div>
+      <div class="df-slot df-empty"></div>
+    
+      <div class="df-slot"><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="56" viewBox="0 0 44 56" fill="none">
+  <defs>
+    <linearGradient id="swm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/>
+      <stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <linearGradient id="swb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#888"/><stop offset="25%" stop-color="#d4d4d4"/>
+      <stop offset="50%" stop-color="#f0f0f0"/><stop offset="75%" stop-color="#b4b4b4"/>
+      <stop offset="100%" stop-color="#666"/>
+    </linearGradient>
+    <radialGradient id="swball" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#e0e0e0"/><stop offset="40%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </radialGradient>
+  </defs>
+  <!-- Top drive stub (female 3/8" square) -->
+  <rect x="15" y="1" width="14" height="10" rx="2" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="18" y="2.5" width="8" height="7" rx="0.8" fill="none" stroke="#666" stroke-width="0.5"/>
+  <rect x="19.5" y="3.5" width="5" height="5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <!-- Upper shaft -->
+  <rect x="18.5" y="10" width="7" height="9" fill="url(#swb)" stroke="#333" stroke-width="0.5"/>
+  <rect x="19.5" y="10" width="2" height="9" fill="rgba(255,255,255,0.18)"/>
+  <!-- Knuckle ball joint -->
+  <ellipse cx="22" cy="22" rx="9" ry="9" fill="url(#swball)" stroke="#444" stroke-width="1"/>
+  <!-- Ball joint shine -->
+  <ellipse cx="19" cy="19" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.35)" transform="rotate(-20,19,19)"/>
+  <!-- Ball joint equator groove -->
+  <ellipse cx="22" cy="22" rx="9" ry="3.5" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.2"/>
+  <!-- Lower shaft — angled to show swivel -->
+  <path d="M19 30 L17 44" stroke="url(#swm)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M19.5 30 L17.8 44" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Knurl rings on lower shaft -->
+  <line x1="17.2" y1="33" x2="21.8" y2="32.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.8" y1="36" x2="21.4" y2="35.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.4" y1="39" x2="21" y2="38.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <!-- Bottom drive square nub -->
+  <rect x="14" y="43" width="8" height="10" rx="1.5" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="16" y="44.5" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <circle cx="22" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/>
+</svg></div><div class="df-size">3/8"</div><div class="df-label">Swivel<br>Socket</div></div>
+      <div class="df-slot"><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+  <defs>
+    <radialGradient id="woch" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e8a030"/><stop offset="40%" stop-color="#c07818"/>
+      <stop offset="80%" stop-color="#8a5010"/><stop offset="100%" stop-color="#603808"/>
+    </radialGradient>
+    <radialGradient id="wich" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0e0e0e"/><stop offset="100%" stop-color="#060606"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer copper ring -->
+  <circle cx="22" cy="22" r="19" fill="url(#woch)" stroke="#7a4808" stroke-width="0.8"/>
+  <!-- Top shine arc -->
+  <path d="M6 16 A18 18 0 0 1 38 16" stroke="rgba(255,220,120,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Left shadow -->
+  <path d="M3 22 A19 19 0 0 0 22 41" fill="rgba(0,0,0,0.2)"/>
+  <!-- Knurl texture on face -->
+  <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" stroke-dasharray="3 2"/>
+  <!-- Inner hole -->
+  <circle cx="22" cy="22" r="10" fill="url(#wich)" stroke="#1e1e1e" stroke-width="1"/>
+  <!-- Hole depth shadow -->
+  <circle cx="22" cy="22" r="10" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="2" stroke-dasharray="20 40" stroke-dashoffset="5"/>
+  <!-- Part number -->
+  <text x="22" y="26" text-anchor="middle" font-size="3.5" fill="rgba(255,200,80,0.7)" font-family="monospace" letter-spacing="0.2">#12341572</text>
+</svg></div><div class="df-size">Crush</div><div class="df-label">Drain Washer<br>Replace Every Time</div></div>
+    </div><div class="df-legend">
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc0000;box-shadow:0 0 4px rgba(200,0,0,0.6)"></div>Critical</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc8800;box-shadow:0 0 4px rgba(200,130,0,0.6)"></div>Common</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#22aa44;box-shadow:0 0 4px rgba(30,160,60,0.6)"></div>Optional</div>
+    </div>
+              </div>
+              <div class="mke-slide-footer">
+                <div class="mke-slide-pull"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mke-drawer" onclick="toggleDrawer(this)">
+          <div class="mke-drawer-label">FORD</div>
+          <div class="mke-pull"></div>
+          <div class="mke-drawer-arrow"></div>
+          <div class="mke-slide-panel">
+            <div class="mke-slide-shell">
+              <div class="df-foam">
+                <div class="df-grid">
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smf1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sff1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smf1)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sff1)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">15mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smf1)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">15mm</div><div class="df-label">Drain Plug<br>Socket</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smf2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sff2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smf2)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sff2)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">18mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smf2)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">18mm</div><div class="df-label">Alt Drain Plug</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh38b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0c0c0"/><stop offset="20%" stop-color="#e8e8e8"/><stop offset="50%" stop-color="#f4f4f4"/><stop offset="80%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#888"/></linearGradient><linearGradient id="rd38b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="38%" stop-color="#ddd"/><stop offset="65%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#777"/></linearGradient><radialGradient id="rg38b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="65%" stop-color="#161616"/><stop offset="100%" stop-color="#060606"/></radialGradient></defs><path d="M5 18.5 L102 17 L102 29 L5 30.5 Z" fill="url(#rh38b)" stroke="#444" stroke-width="0.6"/><path d="M5 18.5 L102 17 L102 19.5 L5 21 Z" fill="rgba(255,255,255,0.3)"/><line x1="32" y1="17" x2="32" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="38" y1="17" x2="38" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="44" y1="17" x2="44" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="50" y1="17" x2="50" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="56" y1="17" x2="56" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="62" y1="17" x2="62" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="68" y1="17" x2="68" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="74" y1="17" x2="74" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><ellipse cx="6" cy="24" rx="5" ry="7.5" fill="url(#rd38b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="24" rx="2.3" ry="4.2" fill="#1a1a1a"/><circle cx="124" cy="23" r="21" fill="url(#rd38b)" stroke="#333" stroke-width="1"/><circle cx="124" cy="23" r="18.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3" stroke-dasharray="3.2 2"/><circle cx="124" cy="23" r="15.5" fill="url(#rg38b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="124" cy="23" r="11.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M105 12 A21 21 0 0 1 143 12" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="118" y="5" width="12" height="5" rx="2.5" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="120" y="6" width="8" height="3" rx="1.5" fill="#d0d0d0"/><rect x="120.5" y="19" width="7" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="122.5" y="21" width="3" height="4" rx="0.5" fill="#0e0e0e"/><rect x="100.5" y="18" width="7" height="10" rx="2" fill="url(#rd38b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">3/8&quot; Drive</div><div class="df-label">Ratchet — Primary</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="22" height="54" viewBox="0 0 22 54" fill="none"><defs><linearGradient id="extt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="22%" stop-color="#b8b8b8"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="78%" stop-color="#a0a0a0"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4.5" y="1" width="13" height="9" rx="2" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="8.5" y="3.5" width="5" height="4" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.4"/><rect x="9" y="9" width="4" height="35" fill="url(#extt)" stroke="#333" stroke-width="0.5"/><rect x="9.8" y="9" width="1.5" height="35" fill="rgba(255,255,255,0.17)"/><line x1="9" y1="14" x2="13" y2="14" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="16" x2="13" y2="16" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="22" x2="13" y2="22" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="24" x2="13" y2="24" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="30" x2="13" y2="30" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="32" x2="13" y2="32" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="38" x2="13" y2="38" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><rect x="7.5" y="43" width="7" height="9.5" rx="1.5" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="9.5" y="44.5" width="3.5" height="3.5" rx="0.5" fill="#0e0e0e"/><circle cx="14.5" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">3&quot;/6&quot;</div><div class="df-label">Extension</div></div>
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="fmff1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/><stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="ffff1" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><circle cx="22" cy="20" r="18" fill="url(#fmff1)" stroke="#333" stroke-width="0.8"/><path d="M4 20 A18 18 0 0 0 22 38" fill="rgba(0,0,0,0.2)"/><path d="M5 16 A18 18 0 0 1 39 16" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="2.8" stroke-dasharray="3.5 2"/><circle cx="22" cy="20" r="12" fill="url(#ffff1)" stroke="#1e1e1e" stroke-width="1"/><circle cx="22" cy="20" r="9" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="4.5 2.8"/><text x="22" y="23" text-anchor="middle" font-size="5.5" font-weight="700" fill="#bbb" font-family="Bebas Neue,sans-serif">67mm</text><rect x="17.5" y="37" width="9" height="12" rx="1.5" fill="url(#fmff1)" stroke="#333" stroke-width="0.7"/><rect x="20" y="39" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="26.5" cy="43" r="0.9" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">67mm</div><div class="df-label">Filter Cap</div></div>
+      <div class="df-slot wide2"><div class="df-dot comm"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh12b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="20%" stop-color="#d8d8d8"/><stop offset="50%" stop-color="#eee"/><stop offset="80%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="rd12b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="40%" stop-color="#d4d4d4"/><stop offset="70%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#666"/></linearGradient><radialGradient id="rg12b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#282828"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M5 15.5 L98 14 L98 32 L5 33.5 Z" fill="url(#rh12b)" stroke="#444" stroke-width="0.6"/><path d="M5 15.5 L98 14 L98 16.5 L5 18 Z" fill="rgba(255,255,255,0.26)"/><line x1="28" y1="14" x2="28" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="34" y1="14" x2="34" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="40" y1="14" x2="40" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="46" y1="14" x2="46" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="52" y1="14" x2="52" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="58" y1="14" x2="58" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="64" y1="14" x2="64" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><ellipse cx="6" cy="23" rx="5" ry="9" fill="url(#rd12b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="23" rx="2.3" ry="5" fill="#1a1a1a"/><circle cx="122" cy="23" r="23" fill="url(#rd12b)" stroke="#333" stroke-width="1.2"/><circle cx="122" cy="23" r="20.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3.5" stroke-dasharray="3.5 2.2"/><circle cx="122" cy="23" r="17" fill="url(#rg12b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="122" cy="23" r="12.5" fill="none" stroke="#1e1e1e" stroke-width="1.5" stroke-dasharray="5 3.2"/><path d="M101 12 A23 23 0 0 1 143 12" stroke="rgba(255,255,255,0.15)" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="116" y="3.5" width="12" height="5.5" rx="2.7" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="118" y="5" width="8" height="3.5" rx="1.6" fill="#d0d0d0"/><rect x="117" y="18.5" width="10" height="9" rx="1.4" fill="#909090" stroke="#555" stroke-width="0.8"/><rect x="119" y="20.5" width="6" height="5" rx="0.7" fill="#0e0e0e"/><rect x="97" y="16" width="9" height="14" rx="2" fill="url(#rd12b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">1/2&quot; Drive</div><div class="df-label">Ratchet — Heavy Duty</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="tqhh" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="30%" stop-color="#d0d0d0"/><stop offset="55%" stop-color="#e2e2e2"/><stop offset="82%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="tqdd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#aaa"/><stop offset="40%" stop-color="#d8d8d8"/><stop offset="70%" stop-color="#ccc"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="tqkk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#999"/><stop offset="40%" stop-color="#ccc"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="tqgg" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#252525"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M26 20 L106 19 L106 28 L26 29 Z" fill="url(#tqhh)" stroke="#444" stroke-width="0.6"/><path d="M26 20 L106 19 L106 21 L26 22 Z" fill="rgba(255,255,255,0.24)"/><rect x="44" y="17" width="38" height="14" rx="1.5" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="0.5"/><line x1="49" y1="20" x2="49" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="54" y1="19" x2="54" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="59" y1="20" x2="59" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="64" y1="18.5" x2="64" y2="24" stroke="#cc0000" stroke-width="1.4"/><line x1="69" y1="20" x2="69" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="74" y1="19" x2="74" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="79" y1="20" x2="79" y2="22.5" stroke="#666" stroke-width="0.7"/><text x="56" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">25</text><text x="74" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">35 ft·lb</text><ellipse cx="17" cy="23.5" rx="13" ry="10" fill="url(#tqkk)" stroke="#333" stroke-width="0.8"/><line x1="5" y1="19" x2="29" y2="19" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="21.5" x2="29" y2="21.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="24" x2="29" y2="24" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="26.5" x2="29" y2="26.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="29" x2="29" y2="29" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><ellipse cx="17" cy="23.5" rx="3.5" ry="4" fill="#0e0e0e"/><circle cx="126" cy="23.5" r="20" fill="url(#tqdd)" stroke="#333" stroke-width="1"/><circle cx="126" cy="23.5" r="17.5" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-dasharray="3.2 2"/><circle cx="126" cy="23.5" r="14.5" fill="url(#tqgg)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="126" cy="23.5" r="10.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M108 13 A20 20 0 0 1 144 13" stroke="rgba(255,255,255,0.17)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="121" y="19.5" width="9" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="123" y="21.5" width="5" height="4" rx="0.5" fill="#0e0e0e"/><rect x="104" y="18.5" width="7" height="10" rx="2" fill="url(#tqdd)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">25–35 ft·lbs</div><div class="df-label">Torque Wrench</div></div>
+      <div class="df-slot "><div class="df-dot opt"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="sww" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="28%" stop-color="#a8a8a8"/><stop offset="52%" stop-color="#c8c8c8"/><stop offset="78%" stop-color="#888"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4" y="36" width="36" height="10" rx="5" fill="url(#sww)" stroke="#2a2a2a" stroke-width="0.7"/><rect x="4" y="36.5" width="36" height="2.5" rx="1.2" fill="rgba(255,255,255,0.2)"/><line x1="12" y1="36" x2="12" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="18" y1="36" x2="18" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="24" y1="36" x2="24" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="30" y1="36" x2="30" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#4a1e06" stroke-width="8" stroke-linecap="round"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#7a3308" stroke-width="5.5" stroke-linecap="round"/><path d="M8.5 40 Q5 15 22 6.5 Q39 15 35.5 40" fill="none" stroke="rgba(200,120,60,0.5)" stroke-width="2" stroke-linecap="round"/><path d="M9 40 Q5.5 15.5 22 7 Q38.5 15.5 35 40" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="3 3.5"/><rect x="2.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/><rect x="34.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/></svg></div><div class="df-size">Strap</div><div class="df-label">Spin-On<br>Wrench</div></div>
+    
+      <div class="df-slot"><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="56" viewBox="0 0 44 56" fill="none">
+  <defs>
+    <linearGradient id="swm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/>
+      <stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <linearGradient id="swb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#888"/><stop offset="25%" stop-color="#d4d4d4"/>
+      <stop offset="50%" stop-color="#f0f0f0"/><stop offset="75%" stop-color="#b4b4b4"/>
+      <stop offset="100%" stop-color="#666"/>
+    </linearGradient>
+    <radialGradient id="swball" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#e0e0e0"/><stop offset="40%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </radialGradient>
+  </defs>
+  <!-- Top drive stub (female 3/8" square) -->
+  <rect x="15" y="1" width="14" height="10" rx="2" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="18" y="2.5" width="8" height="7" rx="0.8" fill="none" stroke="#666" stroke-width="0.5"/>
+  <rect x="19.5" y="3.5" width="5" height="5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <!-- Upper shaft -->
+  <rect x="18.5" y="10" width="7" height="9" fill="url(#swb)" stroke="#333" stroke-width="0.5"/>
+  <rect x="19.5" y="10" width="2" height="9" fill="rgba(255,255,255,0.18)"/>
+  <!-- Knuckle ball joint -->
+  <ellipse cx="22" cy="22" rx="9" ry="9" fill="url(#swball)" stroke="#444" stroke-width="1"/>
+  <!-- Ball joint shine -->
+  <ellipse cx="19" cy="19" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.35)" transform="rotate(-20,19,19)"/>
+  <!-- Ball joint equator groove -->
+  <ellipse cx="22" cy="22" rx="9" ry="3.5" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.2"/>
+  <!-- Lower shaft — angled to show swivel -->
+  <path d="M19 30 L17 44" stroke="url(#swm)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M19.5 30 L17.8 44" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Knurl rings on lower shaft -->
+  <line x1="17.2" y1="33" x2="21.8" y2="32.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.8" y1="36" x2="21.4" y2="35.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.4" y1="39" x2="21" y2="38.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <!-- Bottom drive square nub -->
+  <rect x="14" y="43" width="8" height="10" rx="1.5" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="16" y="44.5" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <circle cx="22" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/>
+</svg></div><div class="df-size">3/8"</div><div class="df-label">Swivel<br>Socket</div></div>
+      <div class="df-slot"><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+  <defs>
+    <radialGradient id="wofo" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e8a030"/><stop offset="40%" stop-color="#c07818"/>
+      <stop offset="80%" stop-color="#8a5010"/><stop offset="100%" stop-color="#603808"/>
+    </radialGradient>
+    <radialGradient id="wifo" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0e0e0e"/><stop offset="100%" stop-color="#060606"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer copper ring -->
+  <circle cx="22" cy="22" r="19" fill="url(#wofo)" stroke="#7a4808" stroke-width="0.8"/>
+  <!-- Top shine arc -->
+  <path d="M6 16 A18 18 0 0 1 38 16" stroke="rgba(255,220,120,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Left shadow -->
+  <path d="M3 22 A19 19 0 0 0 22 41" fill="rgba(0,0,0,0.2)"/>
+  <!-- Knurl texture on face -->
+  <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" stroke-dasharray="3 2"/>
+  <!-- Inner hole -->
+  <circle cx="22" cy="22" r="10" fill="url(#wifo)" stroke="#1e1e1e" stroke-width="1"/>
+  <!-- Hole depth shadow -->
+  <circle cx="22" cy="22" r="10" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="2" stroke-dasharray="20 40" stroke-dashoffset="5"/>
+  <!-- Part number -->
+  <text x="22" y="26" text-anchor="middle" font-size="3.5" fill="rgba(255,200,80,0.7)" font-family="monospace" letter-spacing="0.2">#W710058-S</text>
+</svg></div><div class="df-size">Crush</div><div class="df-label">Drain Washer<br>Replace Every Time</div></div>
+    </div><div class="df-legend">
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc0000;box-shadow:0 0 4px rgba(200,0,0,0.6)"></div>Critical</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc8800;box-shadow:0 0 4px rgba(200,130,0,0.6)"></div>Common</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#22aa44;box-shadow:0 0 4px rgba(30,160,60,0.6)"></div>Optional</div>
+    </div>
+              </div>
+              <div class="mke-slide-footer">
+                <div class="mke-slide-pull"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mke-drawer" onclick="toggleDrawer(this)">
+          <div class="mke-drawer-label">HONDA</div>
+          <div class="mke-pull"></div>
+          <div class="mke-drawer-arrow"></div>
+          <div class="mke-slide-panel">
+            <div class="mke-slide-shell">
+              <div class="df-foam">
+                <div class="df-grid">
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smh1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sfh1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smh1)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sfh1)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">17mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smh1)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">17mm</div><div class="df-label">Drain Plug<br>Socket</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh38b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0c0c0"/><stop offset="20%" stop-color="#e8e8e8"/><stop offset="50%" stop-color="#f4f4f4"/><stop offset="80%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#888"/></linearGradient><linearGradient id="rd38b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="38%" stop-color="#ddd"/><stop offset="65%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#777"/></linearGradient><radialGradient id="rg38b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="65%" stop-color="#161616"/><stop offset="100%" stop-color="#060606"/></radialGradient></defs><path d="M5 18.5 L102 17 L102 29 L5 30.5 Z" fill="url(#rh38b)" stroke="#444" stroke-width="0.6"/><path d="M5 18.5 L102 17 L102 19.5 L5 21 Z" fill="rgba(255,255,255,0.3)"/><line x1="32" y1="17" x2="32" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="38" y1="17" x2="38" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="44" y1="17" x2="44" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="50" y1="17" x2="50" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="56" y1="17" x2="56" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="62" y1="17" x2="62" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="68" y1="17" x2="68" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="74" y1="17" x2="74" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><ellipse cx="6" cy="24" rx="5" ry="7.5" fill="url(#rd38b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="24" rx="2.3" ry="4.2" fill="#1a1a1a"/><circle cx="124" cy="23" r="21" fill="url(#rd38b)" stroke="#333" stroke-width="1"/><circle cx="124" cy="23" r="18.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3" stroke-dasharray="3.2 2"/><circle cx="124" cy="23" r="15.5" fill="url(#rg38b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="124" cy="23" r="11.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M105 12 A21 21 0 0 1 143 12" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="118" y="5" width="12" height="5" rx="2.5" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="120" y="6" width="8" height="3" rx="1.5" fill="#d0d0d0"/><rect x="120.5" y="19" width="7" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="122.5" y="21" width="3" height="4" rx="0.5" fill="#0e0e0e"/><rect x="100.5" y="18" width="7" height="10" rx="2" fill="url(#rd38b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">3/8&quot; Drive</div><div class="df-label">Ratchet — Primary</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="22" height="54" viewBox="0 0 22 54" fill="none"><defs><linearGradient id="extt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="22%" stop-color="#b8b8b8"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="78%" stop-color="#a0a0a0"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4.5" y="1" width="13" height="9" rx="2" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="8.5" y="3.5" width="5" height="4" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.4"/><rect x="9" y="9" width="4" height="35" fill="url(#extt)" stroke="#333" stroke-width="0.5"/><rect x="9.8" y="9" width="1.5" height="35" fill="rgba(255,255,255,0.17)"/><line x1="9" y1="14" x2="13" y2="14" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="16" x2="13" y2="16" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="22" x2="13" y2="22" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="24" x2="13" y2="24" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="30" x2="13" y2="30" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="32" x2="13" y2="32" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="38" x2="13" y2="38" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><rect x="7.5" y="43" width="7" height="9.5" rx="1.5" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="9.5" y="44.5" width="3.5" height="3.5" rx="0.5" fill="#0e0e0e"/><circle cx="14.5" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">3&quot;/6&quot;</div><div class="df-label">Extension</div></div>
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="fmhf1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/><stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="ffhf1" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><circle cx="22" cy="20" r="18" fill="url(#fmhf1)" stroke="#333" stroke-width="0.8"/><path d="M4 20 A18 18 0 0 0 22 38" fill="rgba(0,0,0,0.2)"/><path d="M5 16 A18 18 0 0 1 39 16" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="2.8" stroke-dasharray="3.5 2"/><circle cx="22" cy="20" r="12" fill="url(#ffhf1)" stroke="#1e1e1e" stroke-width="1"/><circle cx="22" cy="20" r="9" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="4.5 2.8"/><text x="22" y="23" text-anchor="middle" font-size="5.5" font-weight="700" fill="#bbb" font-family="Bebas Neue,sans-serif">67mm</text><rect x="17.5" y="37" width="9" height="12" rx="1.5" fill="url(#fmhf1)" stroke="#333" stroke-width="0.7"/><rect x="20" y="39" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="26.5" cy="43" r="0.9" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">67mm</div><div class="df-label">Filter Cap</div></div>
+      <div class="df-slot wide2"><div class="df-dot comm"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh12b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="20%" stop-color="#d8d8d8"/><stop offset="50%" stop-color="#eee"/><stop offset="80%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="rd12b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="40%" stop-color="#d4d4d4"/><stop offset="70%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#666"/></linearGradient><radialGradient id="rg12b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#282828"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M5 15.5 L98 14 L98 32 L5 33.5 Z" fill="url(#rh12b)" stroke="#444" stroke-width="0.6"/><path d="M5 15.5 L98 14 L98 16.5 L5 18 Z" fill="rgba(255,255,255,0.26)"/><line x1="28" y1="14" x2="28" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="34" y1="14" x2="34" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="40" y1="14" x2="40" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="46" y1="14" x2="46" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="52" y1="14" x2="52" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="58" y1="14" x2="58" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="64" y1="14" x2="64" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><ellipse cx="6" cy="23" rx="5" ry="9" fill="url(#rd12b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="23" rx="2.3" ry="5" fill="#1a1a1a"/><circle cx="122" cy="23" r="23" fill="url(#rd12b)" stroke="#333" stroke-width="1.2"/><circle cx="122" cy="23" r="20.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3.5" stroke-dasharray="3.5 2.2"/><circle cx="122" cy="23" r="17" fill="url(#rg12b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="122" cy="23" r="12.5" fill="none" stroke="#1e1e1e" stroke-width="1.5" stroke-dasharray="5 3.2"/><path d="M101 12 A23 23 0 0 1 143 12" stroke="rgba(255,255,255,0.15)" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="116" y="3.5" width="12" height="5.5" rx="2.7" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="118" y="5" width="8" height="3.5" rx="1.6" fill="#d0d0d0"/><rect x="117" y="18.5" width="10" height="9" rx="1.4" fill="#909090" stroke="#555" stroke-width="0.8"/><rect x="119" y="20.5" width="6" height="5" rx="0.7" fill="#0e0e0e"/><rect x="97" y="16" width="9" height="14" rx="2" fill="url(#rd12b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">1/2&quot; Drive</div><div class="df-label">Ratchet — Heavy Duty</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="tqhh" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="30%" stop-color="#d0d0d0"/><stop offset="55%" stop-color="#e2e2e2"/><stop offset="82%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="tqdd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#aaa"/><stop offset="40%" stop-color="#d8d8d8"/><stop offset="70%" stop-color="#ccc"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="tqkk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#999"/><stop offset="40%" stop-color="#ccc"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="tqgg" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#252525"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M26 20 L106 19 L106 28 L26 29 Z" fill="url(#tqhh)" stroke="#444" stroke-width="0.6"/><path d="M26 20 L106 19 L106 21 L26 22 Z" fill="rgba(255,255,255,0.24)"/><rect x="44" y="17" width="38" height="14" rx="1.5" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="0.5"/><line x1="49" y1="20" x2="49" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="54" y1="19" x2="54" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="59" y1="20" x2="59" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="64" y1="18.5" x2="64" y2="24" stroke="#cc0000" stroke-width="1.4"/><line x1="69" y1="20" x2="69" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="74" y1="19" x2="74" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="79" y1="20" x2="79" y2="22.5" stroke="#666" stroke-width="0.7"/><text x="56" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">29</text><text x="74" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">36 ft·lb</text><ellipse cx="17" cy="23.5" rx="13" ry="10" fill="url(#tqkk)" stroke="#333" stroke-width="0.8"/><line x1="5" y1="19" x2="29" y2="19" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="21.5" x2="29" y2="21.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="24" x2="29" y2="24" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="26.5" x2="29" y2="26.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="29" x2="29" y2="29" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><ellipse cx="17" cy="23.5" rx="3.5" ry="4" fill="#0e0e0e"/><circle cx="126" cy="23.5" r="20" fill="url(#tqdd)" stroke="#333" stroke-width="1"/><circle cx="126" cy="23.5" r="17.5" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-dasharray="3.2 2"/><circle cx="126" cy="23.5" r="14.5" fill="url(#tqgg)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="126" cy="23.5" r="10.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M108 13 A20 20 0 0 1 144 13" stroke="rgba(255,255,255,0.17)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="121" y="19.5" width="9" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="123" y="21.5" width="5" height="4" rx="0.5" fill="#0e0e0e"/><rect x="104" y="18.5" width="7" height="10" rx="2" fill="url(#tqdd)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">29–36 ft·lbs</div><div class="df-label">Torque Wrench</div></div>
+      <div class="df-slot "><div class="df-dot opt"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="sww" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="28%" stop-color="#a8a8a8"/><stop offset="52%" stop-color="#c8c8c8"/><stop offset="78%" stop-color="#888"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4" y="36" width="36" height="10" rx="5" fill="url(#sww)" stroke="#2a2a2a" stroke-width="0.7"/><rect x="4" y="36.5" width="36" height="2.5" rx="1.2" fill="rgba(255,255,255,0.2)"/><line x1="12" y1="36" x2="12" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="18" y1="36" x2="18" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="24" y1="36" x2="24" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="30" y1="36" x2="30" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#4a1e06" stroke-width="8" stroke-linecap="round"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#7a3308" stroke-width="5.5" stroke-linecap="round"/><path d="M8.5 40 Q5 15 22 6.5 Q39 15 35.5 40" fill="none" stroke="rgba(200,120,60,0.5)" stroke-width="2" stroke-linecap="round"/><path d="M9 40 Q5.5 15.5 22 7 Q38.5 15.5 35 40" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="3 3.5"/><rect x="2.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/><rect x="34.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/></svg></div><div class="df-size">Strap</div><div class="df-label">Spin-On<br>Wrench</div></div>
+      <div class="df-slot df-empty"></div>
+    
+      <div class="df-slot"><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="56" viewBox="0 0 44 56" fill="none">
+  <defs>
+    <linearGradient id="swm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/>
+      <stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <linearGradient id="swb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#888"/><stop offset="25%" stop-color="#d4d4d4"/>
+      <stop offset="50%" stop-color="#f0f0f0"/><stop offset="75%" stop-color="#b4b4b4"/>
+      <stop offset="100%" stop-color="#666"/>
+    </linearGradient>
+    <radialGradient id="swball" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#e0e0e0"/><stop offset="40%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </radialGradient>
+  </defs>
+  <!-- Top drive stub (female 3/8" square) -->
+  <rect x="15" y="1" width="14" height="10" rx="2" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="18" y="2.5" width="8" height="7" rx="0.8" fill="none" stroke="#666" stroke-width="0.5"/>
+  <rect x="19.5" y="3.5" width="5" height="5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <!-- Upper shaft -->
+  <rect x="18.5" y="10" width="7" height="9" fill="url(#swb)" stroke="#333" stroke-width="0.5"/>
+  <rect x="19.5" y="10" width="2" height="9" fill="rgba(255,255,255,0.18)"/>
+  <!-- Knuckle ball joint -->
+  <ellipse cx="22" cy="22" rx="9" ry="9" fill="url(#swball)" stroke="#444" stroke-width="1"/>
+  <!-- Ball joint shine -->
+  <ellipse cx="19" cy="19" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.35)" transform="rotate(-20,19,19)"/>
+  <!-- Ball joint equator groove -->
+  <ellipse cx="22" cy="22" rx="9" ry="3.5" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.2"/>
+  <!-- Lower shaft — angled to show swivel -->
+  <path d="M19 30 L17 44" stroke="url(#swm)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M19.5 30 L17.8 44" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Knurl rings on lower shaft -->
+  <line x1="17.2" y1="33" x2="21.8" y2="32.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.8" y1="36" x2="21.4" y2="35.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.4" y1="39" x2="21" y2="38.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <!-- Bottom drive square nub -->
+  <rect x="14" y="43" width="8" height="10" rx="1.5" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="16" y="44.5" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <circle cx="22" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/>
+</svg></div><div class="df-size">3/8"</div><div class="df-label">Swivel<br>Socket</div></div>
+      <div class="df-slot"><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+  <defs>
+    <radialGradient id="woho" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e8a030"/><stop offset="40%" stop-color="#c07818"/>
+      <stop offset="80%" stop-color="#8a5010"/><stop offset="100%" stop-color="#603808"/>
+    </radialGradient>
+    <radialGradient id="wiho" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0e0e0e"/><stop offset="100%" stop-color="#060606"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer copper ring -->
+  <circle cx="22" cy="22" r="19" fill="url(#woho)" stroke="#7a4808" stroke-width="0.8"/>
+  <!-- Top shine arc -->
+  <path d="M6 16 A18 18 0 0 1 38 16" stroke="rgba(255,220,120,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Left shadow -->
+  <path d="M3 22 A19 19 0 0 0 22 41" fill="rgba(0,0,0,0.2)"/>
+  <!-- Knurl texture on face -->
+  <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" stroke-dasharray="3 2"/>
+  <!-- Inner hole -->
+  <circle cx="22" cy="22" r="10" fill="url(#wiho)" stroke="#1e1e1e" stroke-width="1"/>
+  <!-- Hole depth shadow -->
+  <circle cx="22" cy="22" r="10" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="2" stroke-dasharray="20 40" stroke-dashoffset="5"/>
+  <!-- Part number -->
+  <text x="22" y="26" text-anchor="middle" font-size="3.5" fill="rgba(255,200,80,0.7)" font-family="monospace" letter-spacing="0.2">#94109-14000</text>
+</svg></div><div class="df-size">Crush</div><div class="df-label">Drain Washer<br>Replace Every Time</div></div>
+    </div><div class="df-legend">
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc0000;box-shadow:0 0 4px rgba(200,0,0,0.6)"></div>Critical</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc8800;box-shadow:0 0 4px rgba(200,130,0,0.6)"></div>Common</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#22aa44;box-shadow:0 0 4px rgba(30,160,60,0.6)"></div>Optional</div>
+    </div>
+              </div>
+              <div class="mke-slide-footer">
+                <div class="mke-slide-pull"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mke-drawer" onclick="toggleDrawer(this)">
+          <div class="mke-drawer-label">TOYOTA</div>
+          <div class="mke-pull"></div>
+          <div class="mke-drawer-arrow"></div>
+          <div class="mke-slide-panel">
+            <div class="mke-slide-shell">
+              <div class="df-foam">
+                <div class="df-grid">
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smt1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sft1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smt1)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sft1)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">14mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smt1)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">14mm</div><div class="df-label">Drain Plug<br>Socket</div></div>
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="fmtf1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/><stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="fftf1" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><circle cx="22" cy="20" r="18" fill="url(#fmtf1)" stroke="#333" stroke-width="0.8"/><path d="M4 20 A18 18 0 0 0 22 38" fill="rgba(0,0,0,0.2)"/><path d="M5 16 A18 18 0 0 1 39 16" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="2.8" stroke-dasharray="3.5 2"/><circle cx="22" cy="20" r="12" fill="url(#fftf1)" stroke="#1e1e1e" stroke-width="1"/><circle cx="22" cy="20" r="9" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="4.5 2.8"/><text x="22" y="23" text-anchor="middle" font-size="5.5" font-weight="700" fill="#bbb" font-family="Bebas Neue,sans-serif">67mm</text><rect x="17.5" y="37" width="9" height="12" rx="1.5" fill="url(#fmtf1)" stroke="#333" stroke-width="0.7"/><rect x="20" y="39" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="26.5" cy="43" r="0.9" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">67mm</div><div class="df-label">Filter Cap</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="fmtf2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/><stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="fftf2" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><circle cx="22" cy="20" r="18" fill="url(#fmtf2)" stroke="#333" stroke-width="0.8"/><path d="M4 20 A18 18 0 0 0 22 38" fill="rgba(0,0,0,0.2)"/><path d="M5 16 A18 18 0 0 1 39 16" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="2.8" stroke-dasharray="3.5 2"/><circle cx="22" cy="20" r="12" fill="url(#fftf2)" stroke="#1e1e1e" stroke-width="1"/><circle cx="22" cy="20" r="9" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="4.5 2.8"/><text x="22" y="23" text-anchor="middle" font-size="5.5" font-weight="700" fill="#bbb" font-family="Bebas Neue,sans-serif">64mm</text><rect x="17.5" y="37" width="9" height="12" rx="1.5" fill="url(#fmtf2)" stroke="#333" stroke-width="0.7"/><rect x="20" y="39" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="26.5" cy="43" r="0.9" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">64mm</div><div class="df-label">Filter Alt</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="22" height="54" viewBox="0 0 22 54" fill="none"><defs><linearGradient id="extt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="22%" stop-color="#b8b8b8"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="78%" stop-color="#a0a0a0"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4.5" y="1" width="13" height="9" rx="2" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="8.5" y="3.5" width="5" height="4" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.4"/><rect x="9" y="9" width="4" height="35" fill="url(#extt)" stroke="#333" stroke-width="0.5"/><rect x="9.8" y="9" width="1.5" height="35" fill="rgba(255,255,255,0.17)"/><line x1="9" y1="14" x2="13" y2="14" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="16" x2="13" y2="16" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="22" x2="13" y2="22" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="24" x2="13" y2="24" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="30" x2="13" y2="30" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="32" x2="13" y2="32" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="38" x2="13" y2="38" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><rect x="7.5" y="43" width="7" height="9.5" rx="1.5" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="9.5" y="44.5" width="3.5" height="3.5" rx="0.5" fill="#0e0e0e"/><circle cx="14.5" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">3&quot;/6&quot;</div><div class="df-label">Extension</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh38b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0c0c0"/><stop offset="20%" stop-color="#e8e8e8"/><stop offset="50%" stop-color="#f4f4f4"/><stop offset="80%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#888"/></linearGradient><linearGradient id="rd38b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="38%" stop-color="#ddd"/><stop offset="65%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#777"/></linearGradient><radialGradient id="rg38b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="65%" stop-color="#161616"/><stop offset="100%" stop-color="#060606"/></radialGradient></defs><path d="M5 18.5 L102 17 L102 29 L5 30.5 Z" fill="url(#rh38b)" stroke="#444" stroke-width="0.6"/><path d="M5 18.5 L102 17 L102 19.5 L5 21 Z" fill="rgba(255,255,255,0.3)"/><line x1="32" y1="17" x2="32" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="38" y1="17" x2="38" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="44" y1="17" x2="44" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="50" y1="17" x2="50" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="56" y1="17" x2="56" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="62" y1="17" x2="62" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="68" y1="17" x2="68" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="74" y1="17" x2="74" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><ellipse cx="6" cy="24" rx="5" ry="7.5" fill="url(#rd38b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="24" rx="2.3" ry="4.2" fill="#1a1a1a"/><circle cx="124" cy="23" r="21" fill="url(#rd38b)" stroke="#333" stroke-width="1"/><circle cx="124" cy="23" r="18.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3" stroke-dasharray="3.2 2"/><circle cx="124" cy="23" r="15.5" fill="url(#rg38b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="124" cy="23" r="11.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M105 12 A21 21 0 0 1 143 12" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="118" y="5" width="12" height="5" rx="2.5" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="120" y="6" width="8" height="3" rx="1.5" fill="#d0d0d0"/><rect x="120.5" y="19" width="7" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="122.5" y="21" width="3" height="4" rx="0.5" fill="#0e0e0e"/><rect x="100.5" y="18" width="7" height="10" rx="2" fill="url(#rd38b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">3/8&quot; Drive</div><div class="df-label">Ratchet — Primary</div></div>
+      <div class="df-slot wide2"><div class="df-dot comm"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh12b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="20%" stop-color="#d8d8d8"/><stop offset="50%" stop-color="#eee"/><stop offset="80%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="rd12b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="40%" stop-color="#d4d4d4"/><stop offset="70%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#666"/></linearGradient><radialGradient id="rg12b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#282828"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M5 15.5 L98 14 L98 32 L5 33.5 Z" fill="url(#rh12b)" stroke="#444" stroke-width="0.6"/><path d="M5 15.5 L98 14 L98 16.5 L5 18 Z" fill="rgba(255,255,255,0.26)"/><line x1="28" y1="14" x2="28" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="34" y1="14" x2="34" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="40" y1="14" x2="40" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="46" y1="14" x2="46" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="52" y1="14" x2="52" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="58" y1="14" x2="58" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="64" y1="14" x2="64" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><ellipse cx="6" cy="23" rx="5" ry="9" fill="url(#rd12b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="23" rx="2.3" ry="5" fill="#1a1a1a"/><circle cx="122" cy="23" r="23" fill="url(#rd12b)" stroke="#333" stroke-width="1.2"/><circle cx="122" cy="23" r="20.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3.5" stroke-dasharray="3.5 2.2"/><circle cx="122" cy="23" r="17" fill="url(#rg12b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="122" cy="23" r="12.5" fill="none" stroke="#1e1e1e" stroke-width="1.5" stroke-dasharray="5 3.2"/><path d="M101 12 A23 23 0 0 1 143 12" stroke="rgba(255,255,255,0.15)" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="116" y="3.5" width="12" height="5.5" rx="2.7" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="118" y="5" width="8" height="3.5" rx="1.6" fill="#d0d0d0"/><rect x="117" y="18.5" width="10" height="9" rx="1.4" fill="#909090" stroke="#555" stroke-width="0.8"/><rect x="119" y="20.5" width="6" height="5" rx="0.7" fill="#0e0e0e"/><rect x="97" y="16" width="9" height="14" rx="2" fill="url(#rd12b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">1/2&quot; Drive</div><div class="df-label">Ratchet — Heavy Duty</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="tqhh" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="30%" stop-color="#d0d0d0"/><stop offset="55%" stop-color="#e2e2e2"/><stop offset="82%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="tqdd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#aaa"/><stop offset="40%" stop-color="#d8d8d8"/><stop offset="70%" stop-color="#ccc"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="tqkk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#999"/><stop offset="40%" stop-color="#ccc"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="tqgg" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#252525"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M26 20 L106 19 L106 28 L26 29 Z" fill="url(#tqhh)" stroke="#444" stroke-width="0.6"/><path d="M26 20 L106 19 L106 21 L26 22 Z" fill="rgba(255,255,255,0.24)"/><rect x="44" y="17" width="38" height="14" rx="1.5" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="0.5"/><line x1="49" y1="20" x2="49" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="54" y1="19" x2="54" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="59" y1="20" x2="59" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="64" y1="18.5" x2="64" y2="24" stroke="#cc0000" stroke-width="1.4"/><line x1="69" y1="20" x2="69" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="74" y1="19" x2="74" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="79" y1="20" x2="79" y2="22.5" stroke="#666" stroke-width="0.7"/><text x="56" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">27</text><text x="74" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">33 ft·lb</text><ellipse cx="17" cy="23.5" rx="13" ry="10" fill="url(#tqkk)" stroke="#333" stroke-width="0.8"/><line x1="5" y1="19" x2="29" y2="19" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="21.5" x2="29" y2="21.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="24" x2="29" y2="24" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="26.5" x2="29" y2="26.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="29" x2="29" y2="29" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><ellipse cx="17" cy="23.5" rx="3.5" ry="4" fill="#0e0e0e"/><circle cx="126" cy="23.5" r="20" fill="url(#tqdd)" stroke="#333" stroke-width="1"/><circle cx="126" cy="23.5" r="17.5" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-dasharray="3.2 2"/><circle cx="126" cy="23.5" r="14.5" fill="url(#tqgg)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="126" cy="23.5" r="10.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M108 13 A20 20 0 0 1 144 13" stroke="rgba(255,255,255,0.17)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="121" y="19.5" width="9" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="123" y="21.5" width="5" height="4" rx="0.5" fill="#0e0e0e"/><rect x="104" y="18.5" width="7" height="10" rx="2" fill="url(#tqdd)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">27–33 ft·lbs</div><div class="df-label">Torque Wrench</div></div>
+      <div class="df-slot "><div class="df-dot opt"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="sww" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="28%" stop-color="#a8a8a8"/><stop offset="52%" stop-color="#c8c8c8"/><stop offset="78%" stop-color="#888"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4" y="36" width="36" height="10" rx="5" fill="url(#sww)" stroke="#2a2a2a" stroke-width="0.7"/><rect x="4" y="36.5" width="36" height="2.5" rx="1.2" fill="rgba(255,255,255,0.2)"/><line x1="12" y1="36" x2="12" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="18" y1="36" x2="18" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="24" y1="36" x2="24" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="30" y1="36" x2="30" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#4a1e06" stroke-width="8" stroke-linecap="round"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#7a3308" stroke-width="5.5" stroke-linecap="round"/><path d="M8.5 40 Q5 15 22 6.5 Q39 15 35.5 40" fill="none" stroke="rgba(200,120,60,0.5)" stroke-width="2" stroke-linecap="round"/><path d="M9 40 Q5.5 15.5 22 7 Q38.5 15.5 35 40" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="3 3.5"/><rect x="2.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/><rect x="34.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/></svg></div><div class="df-size">Strap</div><div class="df-label">Spin-On<br>Wrench</div></div>
+      <div class="df-slot df-empty"></div>
+    
+      <div class="df-slot"><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="56" viewBox="0 0 44 56" fill="none">
+  <defs>
+    <linearGradient id="swm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/>
+      <stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <linearGradient id="swb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#888"/><stop offset="25%" stop-color="#d4d4d4"/>
+      <stop offset="50%" stop-color="#f0f0f0"/><stop offset="75%" stop-color="#b4b4b4"/>
+      <stop offset="100%" stop-color="#666"/>
+    </linearGradient>
+    <radialGradient id="swball" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#e0e0e0"/><stop offset="40%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </radialGradient>
+  </defs>
+  <!-- Top drive stub (female 3/8" square) -->
+  <rect x="15" y="1" width="14" height="10" rx="2" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="18" y="2.5" width="8" height="7" rx="0.8" fill="none" stroke="#666" stroke-width="0.5"/>
+  <rect x="19.5" y="3.5" width="5" height="5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <!-- Upper shaft -->
+  <rect x="18.5" y="10" width="7" height="9" fill="url(#swb)" stroke="#333" stroke-width="0.5"/>
+  <rect x="19.5" y="10" width="2" height="9" fill="rgba(255,255,255,0.18)"/>
+  <!-- Knuckle ball joint -->
+  <ellipse cx="22" cy="22" rx="9" ry="9" fill="url(#swball)" stroke="#444" stroke-width="1"/>
+  <!-- Ball joint shine -->
+  <ellipse cx="19" cy="19" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.35)" transform="rotate(-20,19,19)"/>
+  <!-- Ball joint equator groove -->
+  <ellipse cx="22" cy="22" rx="9" ry="3.5" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.2"/>
+  <!-- Lower shaft — angled to show swivel -->
+  <path d="M19 30 L17 44" stroke="url(#swm)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M19.5 30 L17.8 44" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Knurl rings on lower shaft -->
+  <line x1="17.2" y1="33" x2="21.8" y2="32.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.8" y1="36" x2="21.4" y2="35.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.4" y1="39" x2="21" y2="38.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <!-- Bottom drive square nub -->
+  <rect x="14" y="43" width="8" height="10" rx="1.5" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="16" y="44.5" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <circle cx="22" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/>
+</svg></div><div class="df-size">3/8"</div><div class="df-label">Swivel<br>Socket</div></div>
+      <div class="df-slot"><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+  <defs>
+    <radialGradient id="woto" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e8a030"/><stop offset="40%" stop-color="#c07818"/>
+      <stop offset="80%" stop-color="#8a5010"/><stop offset="100%" stop-color="#603808"/>
+    </radialGradient>
+    <radialGradient id="wito" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0e0e0e"/><stop offset="100%" stop-color="#060606"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer copper ring -->
+  <circle cx="22" cy="22" r="19" fill="url(#woto)" stroke="#7a4808" stroke-width="0.8"/>
+  <!-- Top shine arc -->
+  <path d="M6 16 A18 18 0 0 1 38 16" stroke="rgba(255,220,120,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Left shadow -->
+  <path d="M3 22 A19 19 0 0 0 22 41" fill="rgba(0,0,0,0.2)"/>
+  <!-- Knurl texture on face -->
+  <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" stroke-dasharray="3 2"/>
+  <!-- Inner hole -->
+  <circle cx="22" cy="22" r="10" fill="url(#wito)" stroke="#1e1e1e" stroke-width="1"/>
+  <!-- Hole depth shadow -->
+  <circle cx="22" cy="22" r="10" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="2" stroke-dasharray="20 40" stroke-dashoffset="5"/>
+  <!-- Part number -->
+  <text x="22" y="26" text-anchor="middle" font-size="3.5" fill="rgba(255,200,80,0.7)" font-family="monospace" letter-spacing="0.2">#90430-12031</text>
+</svg></div><div class="df-size">Crush</div><div class="df-label">Drain Washer<br>Replace Every Time</div></div>
+    </div><div class="df-legend">
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc0000;box-shadow:0 0 4px rgba(200,0,0,0.6)"></div>Critical</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc8800;box-shadow:0 0 4px rgba(200,130,0,0.6)"></div>Common</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#22aa44;box-shadow:0 0 4px rgba(30,160,60,0.6)"></div>Optional</div>
+    </div>
+              </div>
+              <div class="mke-slide-footer">
+                <div class="mke-slide-pull"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mke-drawer" onclick="toggleDrawer(this)">
+          <div class="mke-drawer-label">BMW</div>
+          <div class="mke-pull"></div>
+          <div class="mke-drawer-arrow"></div>
+          <div class="mke-slide-panel">
+            <div class="mke-slide-shell">
+              <div class="df-foam">
+                <div class="df-grid">
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smb1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sfb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smb1)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sfb1)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">17mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smb1)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">17mm</div><div class="df-label">Drain Plug<br>Socket</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="smb2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#888"/><stop offset="22%" stop-color="#d4d4d4"/><stop offset="46%" stop-color="#f0f0f0"/><stop offset="70%" stop-color="#b4b4b4"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="sfb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#060606"/></linearGradient></defs><polygon points="22,2 37,10.5 37,29 22,37.5 7,29 7,10.5" fill="url(#smb2)" stroke="#444" stroke-width="0.7"/><polygon points="22,2 28,5.5 28,35 22,37.5 7,29 7,10.5" fill="rgba(0,0,0,0.18)"/><polygon points="22,2 24,3 24,37 22,37.5 20,37 20,3" fill="rgba(255,255,255,0.07)"/><line x1="7" y1="13" x2="37" y2="13" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="15" x2="37" y2="15" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/><line x1="7" y1="22" x2="37" y2="22" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><line x1="7" y1="30" x2="37" y2="30" stroke="rgba(0,0,0,0.38)" stroke-width="1.4"/><polygon points="22,8 30,12.5 30,24 22,28.5 14,24 14,12.5" fill="url(#sfb2)" stroke="#2a2a2a" stroke-width="0.8"/><polygon points="22,8 30,12.5 30,24 22,28.5" fill="rgba(0,0,0,0.45)"/><text x="22" y="22" text-anchor="middle" font-size="5" font-weight="700" fill="#ccc" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">19mm</text><rect x="16.5" y="36" width="11" height="13" rx="1.5" fill="url(#smb2)" stroke="#333" stroke-width="0.7"/><line x1="16.5" y1="39" x2="27.5" y2="39" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><line x1="16.5" y1="43" x2="27.5" y2="43" stroke="rgba(0,0,0,0.3)" stroke-width="0.7"/><rect x="19" y="37.5" width="6" height="6" rx="0.7" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="27.5" cy="42" r="1.1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/><polygon points="22,2 37,10.5 37,11.8 22,3.3 7,11.8 7,10.5" fill="rgba(255,255,255,0.16)"/></svg></div><div class="df-size">19mm</div><div class="df-label">Alt Drain Plug</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh38b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0c0c0"/><stop offset="20%" stop-color="#e8e8e8"/><stop offset="50%" stop-color="#f4f4f4"/><stop offset="80%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#888"/></linearGradient><linearGradient id="rd38b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="38%" stop-color="#ddd"/><stop offset="65%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#777"/></linearGradient><radialGradient id="rg38b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="65%" stop-color="#161616"/><stop offset="100%" stop-color="#060606"/></radialGradient></defs><path d="M5 18.5 L102 17 L102 29 L5 30.5 Z" fill="url(#rh38b)" stroke="#444" stroke-width="0.6"/><path d="M5 18.5 L102 17 L102 19.5 L5 21 Z" fill="rgba(255,255,255,0.3)"/><line x1="32" y1="17" x2="32" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="38" y1="17" x2="38" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="44" y1="17" x2="44" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="50" y1="17" x2="50" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="56" y1="17" x2="56" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="62" y1="17" x2="62" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="68" y1="17" x2="68" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><line x1="74" y1="17" x2="74" y2="29" stroke="rgba(0,0,0,0.2)" stroke-width="1.3"/><ellipse cx="6" cy="24" rx="5" ry="7.5" fill="url(#rd38b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="24" rx="2.3" ry="4.2" fill="#1a1a1a"/><circle cx="124" cy="23" r="21" fill="url(#rd38b)" stroke="#333" stroke-width="1"/><circle cx="124" cy="23" r="18.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3" stroke-dasharray="3.2 2"/><circle cx="124" cy="23" r="15.5" fill="url(#rg38b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="124" cy="23" r="11.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M105 12 A21 21 0 0 1 143 12" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="118" y="5" width="12" height="5" rx="2.5" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="120" y="6" width="8" height="3" rx="1.5" fill="#d0d0d0"/><rect x="120.5" y="19" width="7" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="122.5" y="21" width="3" height="4" rx="0.5" fill="#0e0e0e"/><rect x="100.5" y="18" width="7" height="10" rx="2" fill="url(#rd38b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">3/8&quot; Drive</div><div class="df-label">Ratchet — Primary</div></div>
+      <div class="df-slot "><div class="df-dot comm"></div><div class="df-tool"><svg width="22" height="54" viewBox="0 0 22 54" fill="none"><defs><linearGradient id="extt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="22%" stop-color="#b8b8b8"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="78%" stop-color="#a0a0a0"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4.5" y="1" width="13" height="9" rx="2" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="8.5" y="3.5" width="5" height="4" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.4"/><rect x="9" y="9" width="4" height="35" fill="url(#extt)" stroke="#333" stroke-width="0.5"/><rect x="9.8" y="9" width="1.5" height="35" fill="rgba(255,255,255,0.17)"/><line x1="9" y1="14" x2="13" y2="14" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="16" x2="13" y2="16" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="22" x2="13" y2="22" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="24" x2="13" y2="24" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="30" x2="13" y2="30" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="32" x2="13" y2="32" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><line x1="9" y1="38" x2="13" y2="38" stroke="rgba(0,0,0,0.48)" stroke-width="1.1"/><rect x="7.5" y="43" width="7" height="9.5" rx="1.5" fill="url(#extt)" stroke="#333" stroke-width="0.7"/><rect x="9.5" y="44.5" width="3.5" height="3.5" rx="0.5" fill="#0e0e0e"/><circle cx="14.5" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">3&quot;/6&quot;</div><div class="df-label">Extension</div></div>
+      <div class="df-slot "><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="fmbf1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/><stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="ffbf1" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><circle cx="22" cy="20" r="18" fill="url(#fmbf1)" stroke="#333" stroke-width="0.8"/><path d="M4 20 A18 18 0 0 0 22 38" fill="rgba(0,0,0,0.2)"/><path d="M5 16 A18 18 0 0 1 39 16" stroke="rgba(255,255,255,0.2)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="22" cy="20" r="18" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="2.8" stroke-dasharray="3.5 2"/><circle cx="22" cy="20" r="12" fill="url(#ffbf1)" stroke="#1e1e1e" stroke-width="1"/><circle cx="22" cy="20" r="9" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="4.5 2.8"/><text x="22" y="23" text-anchor="middle" font-size="5.5" font-weight="700" fill="#bbb" font-family="Bebas Neue,sans-serif">67mm</text><rect x="17.5" y="37" width="9" height="12" rx="1.5" fill="url(#fmbf1)" stroke="#333" stroke-width="0.7"/><rect x="20" y="39" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#2a2a2a" stroke-width="0.5"/><circle cx="26.5" cy="43" r="0.9" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/></svg></div><div class="df-size">67mm</div><div class="df-label">Filter Cap</div></div>
+      <div class="df-slot wide2"><div class="df-dot comm"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="rh12b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b0b0b0"/><stop offset="20%" stop-color="#d8d8d8"/><stop offset="50%" stop-color="#eee"/><stop offset="80%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="rd12b" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="40%" stop-color="#d4d4d4"/><stop offset="70%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#666"/></linearGradient><radialGradient id="rg12b" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#282828"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M5 15.5 L98 14 L98 32 L5 33.5 Z" fill="url(#rh12b)" stroke="#444" stroke-width="0.6"/><path d="M5 15.5 L98 14 L98 16.5 L5 18 Z" fill="rgba(255,255,255,0.26)"/><line x1="28" y1="14" x2="28" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="34" y1="14" x2="34" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="40" y1="14" x2="40" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="46" y1="14" x2="46" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="52" y1="14" x2="52" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="58" y1="14" x2="58" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><line x1="64" y1="14" x2="64" y2="32" stroke="rgba(0,0,0,0.22)" stroke-width="1.7"/><ellipse cx="6" cy="23" rx="5" ry="9" fill="url(#rd12b)" stroke="#333" stroke-width="0.8"/><ellipse cx="6" cy="23" rx="2.3" ry="5" fill="#1a1a1a"/><circle cx="122" cy="23" r="23" fill="url(#rd12b)" stroke="#333" stroke-width="1.2"/><circle cx="122" cy="23" r="20.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="3.5" stroke-dasharray="3.5 2.2"/><circle cx="122" cy="23" r="17" fill="url(#rg12b)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="122" cy="23" r="12.5" fill="none" stroke="#1e1e1e" stroke-width="1.5" stroke-dasharray="5 3.2"/><path d="M101 12 A23 23 0 0 1 143 12" stroke="rgba(255,255,255,0.15)" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="116" y="3.5" width="12" height="5.5" rx="2.7" fill="#b0b0b0" stroke="#666" stroke-width="0.7"/><rect x="118" y="5" width="8" height="3.5" rx="1.6" fill="#d0d0d0"/><rect x="117" y="18.5" width="10" height="9" rx="1.4" fill="#909090" stroke="#555" stroke-width="0.8"/><rect x="119" y="20.5" width="6" height="5" rx="0.7" fill="#0e0e0e"/><rect x="97" y="16" width="9" height="14" rx="2" fill="url(#rd12b)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">1/2&quot; Drive</div><div class="df-label">Ratchet — Heavy Duty</div></div>
+      <div class="df-slot wide2"><div class="df-dot crit"></div><div class="df-tool"><svg width="148" height="46" viewBox="0 0 148 46" fill="none"><defs><linearGradient id="tqhh" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a8a8a8"/><stop offset="30%" stop-color="#d0d0d0"/><stop offset="55%" stop-color="#e2e2e2"/><stop offset="82%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#777"/></linearGradient><linearGradient id="tqdd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#aaa"/><stop offset="40%" stop-color="#d8d8d8"/><stop offset="70%" stop-color="#ccc"/><stop offset="100%" stop-color="#666"/></linearGradient><linearGradient id="tqkk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#999"/><stop offset="40%" stop-color="#ccc"/><stop offset="100%" stop-color="#555"/></linearGradient><radialGradient id="tqgg" cx="42%" cy="38%" r="58%"><stop offset="0%" stop-color="#252525"/><stop offset="65%" stop-color="#131313"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><path d="M26 20 L106 19 L106 28 L26 29 Z" fill="url(#tqhh)" stroke="#444" stroke-width="0.6"/><path d="M26 20 L106 19 L106 21 L26 22 Z" fill="rgba(255,255,255,0.24)"/><rect x="44" y="17" width="38" height="14" rx="1.5" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="0.5"/><line x1="49" y1="20" x2="49" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="54" y1="19" x2="54" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="59" y1="20" x2="59" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="64" y1="18.5" x2="64" y2="24" stroke="#cc0000" stroke-width="1.4"/><line x1="69" y1="20" x2="69" y2="22.5" stroke="#666" stroke-width="0.7"/><line x1="74" y1="19" x2="74" y2="23.5" stroke="#999" stroke-width="0.9"/><line x1="79" y1="20" x2="79" y2="22.5" stroke="#666" stroke-width="0.7"/><text x="56" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">18</text><text x="74" y="30" text-anchor="middle" font-size="3.5" fill="#888" font-family="sans-serif">25 ft·lb</text><ellipse cx="17" cy="23.5" rx="13" ry="10" fill="url(#tqkk)" stroke="#333" stroke-width="0.8"/><line x1="5" y1="19" x2="29" y2="19" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="21.5" x2="29" y2="21.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="24" x2="29" y2="24" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="26.5" x2="29" y2="26.5" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><line x1="5" y1="29" x2="29" y2="29" stroke="rgba(0,0,0,0.32)" stroke-width="1"/><ellipse cx="17" cy="23.5" rx="3.5" ry="4" fill="#0e0e0e"/><circle cx="126" cy="23.5" r="20" fill="url(#tqdd)" stroke="#333" stroke-width="1"/><circle cx="126" cy="23.5" r="17.5" fill="none" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" stroke-dasharray="3.2 2"/><circle cx="126" cy="23.5" r="14.5" fill="url(#tqgg)" stroke="#1a1a1a" stroke-width="0.8"/><circle cx="126" cy="23.5" r="10.5" fill="none" stroke="#1e1e1e" stroke-width="1.2" stroke-dasharray="4.5 3"/><path d="M108 13 A20 20 0 0 1 144 13" stroke="rgba(255,255,255,0.17)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="121" y="19.5" width="9" height="8" rx="1.1" fill="#909090" stroke="#555" stroke-width="0.7"/><rect x="123" y="21.5" width="5" height="4" rx="0.5" fill="#0e0e0e"/><rect x="104" y="18.5" width="7" height="10" rx="2" fill="url(#tqdd)" stroke="#333" stroke-width="0.6"/></svg></div><div class="df-size">18–25 ft·lbs</div><div class="df-label">Torque Wrench</div></div>
+      <div class="df-slot "><div class="df-dot opt"></div><div class="df-tool"><svg width="44" height="52" viewBox="0 0 44 52" fill="none"><defs><linearGradient id="sww" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#555"/><stop offset="28%" stop-color="#a8a8a8"/><stop offset="52%" stop-color="#c8c8c8"/><stop offset="78%" stop-color="#888"/><stop offset="100%" stop-color="#444"/></linearGradient></defs><rect x="4" y="36" width="36" height="10" rx="5" fill="url(#sww)" stroke="#2a2a2a" stroke-width="0.7"/><rect x="4" y="36.5" width="36" height="2.5" rx="1.2" fill="rgba(255,255,255,0.2)"/><line x1="12" y1="36" x2="12" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="18" y1="36" x2="18" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="24" y1="36" x2="24" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><line x1="30" y1="36" x2="30" y2="46" stroke="rgba(0,0,0,0.26)" stroke-width="1.3"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#4a1e06" stroke-width="8" stroke-linecap="round"/><path d="M8 40 Q4 13 22 4 Q40 13 36 40" fill="none" stroke="#7a3308" stroke-width="5.5" stroke-linecap="round"/><path d="M8.5 40 Q5 15 22 6.5 Q39 15 35.5 40" fill="none" stroke="rgba(200,120,60,0.5)" stroke-width="2" stroke-linecap="round"/><path d="M9 40 Q5.5 15.5 22 7 Q38.5 15.5 35 40" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="3 3.5"/><rect x="2.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/><rect x="34.5" y="35" width="7" height="9" rx="2" fill="#6a2e08" stroke="#3a1600" stroke-width="0.7"/></svg></div><div class="df-size">Strap</div><div class="df-label">Spin-On<br>Wrench</div></div>
+    
+      <div class="df-slot"><div class="df-dot comm"></div><div class="df-tool"><svg width="44" height="56" viewBox="0 0 44 56" fill="none">
+  <defs>
+    <linearGradient id="swm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#777"/><stop offset="22%" stop-color="#c8c8c8"/>
+      <stop offset="48%" stop-color="#e8e8e8"/><stop offset="72%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <linearGradient id="swb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#888"/><stop offset="25%" stop-color="#d4d4d4"/>
+      <stop offset="50%" stop-color="#f0f0f0"/><stop offset="75%" stop-color="#b4b4b4"/>
+      <stop offset="100%" stop-color="#666"/>
+    </linearGradient>
+    <radialGradient id="swball" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#e0e0e0"/><stop offset="40%" stop-color="#aaa"/>
+      <stop offset="100%" stop-color="#555"/>
+    </radialGradient>
+  </defs>
+  <!-- Top drive stub (female 3/8" square) -->
+  <rect x="15" y="1" width="14" height="10" rx="2" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="18" y="2.5" width="8" height="7" rx="0.8" fill="none" stroke="#666" stroke-width="0.5"/>
+  <rect x="19.5" y="3.5" width="5" height="5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <!-- Upper shaft -->
+  <rect x="18.5" y="10" width="7" height="9" fill="url(#swb)" stroke="#333" stroke-width="0.5"/>
+  <rect x="19.5" y="10" width="2" height="9" fill="rgba(255,255,255,0.18)"/>
+  <!-- Knuckle ball joint -->
+  <ellipse cx="22" cy="22" rx="9" ry="9" fill="url(#swball)" stroke="#444" stroke-width="1"/>
+  <!-- Ball joint shine -->
+  <ellipse cx="19" cy="19" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.35)" transform="rotate(-20,19,19)"/>
+  <!-- Ball joint equator groove -->
+  <ellipse cx="22" cy="22" rx="9" ry="3.5" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.2"/>
+  <!-- Lower shaft — angled to show swivel -->
+  <path d="M19 30 L17 44" stroke="url(#swm)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M19.5 30 L17.8 44" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Knurl rings on lower shaft -->
+  <line x1="17.2" y1="33" x2="21.8" y2="32.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.8" y1="36" x2="21.4" y2="35.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <line x1="16.4" y1="39" x2="21" y2="38.5" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+  <!-- Bottom drive square nub -->
+  <rect x="14" y="43" width="8" height="10" rx="1.5" fill="url(#swb)" stroke="#333" stroke-width="0.8"/>
+  <rect x="16" y="44.5" width="4.5" height="4.5" rx="0.5" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="0.5"/>
+  <circle cx="22" cy="48" r="1" fill="#080808" stroke="#2a2a2a" stroke-width="0.4"/>
+</svg></div><div class="df-size">3/8"</div><div class="df-label">Swivel<br>Socket</div></div>
+      <div class="df-slot"><div class="df-dot crit"></div><div class="df-tool"><svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+  <defs>
+    <radialGradient id="wobm" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e8a030"/><stop offset="40%" stop-color="#c07818"/>
+      <stop offset="80%" stop-color="#8a5010"/><stop offset="100%" stop-color="#603808"/>
+    </radialGradient>
+    <radialGradient id="wibm" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0e0e0e"/><stop offset="100%" stop-color="#060606"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer copper ring -->
+  <circle cx="22" cy="22" r="19" fill="url(#wobm)" stroke="#7a4808" stroke-width="0.8"/>
+  <!-- Top shine arc -->
+  <path d="M6 16 A18 18 0 0 1 38 16" stroke="rgba(255,220,120,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Left shadow -->
+  <path d="M3 22 A19 19 0 0 0 22 41" fill="rgba(0,0,0,0.2)"/>
+  <!-- Knurl texture on face -->
+  <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" stroke-dasharray="3 2"/>
+  <!-- Inner hole -->
+  <circle cx="22" cy="22" r="10" fill="url(#wibm)" stroke="#1e1e1e" stroke-width="1"/>
+  <!-- Hole depth shadow -->
+  <circle cx="22" cy="22" r="10" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="2" stroke-dasharray="20 40" stroke-dashoffset="5"/>
+  <!-- Part number -->
+  <text x="22" y="26" text-anchor="middle" font-size="3.5" fill="rgba(255,200,80,0.7)" font-family="monospace" letter-spacing="0.2">#07119963252</text>
+</svg></div><div class="df-size">Crush</div><div class="df-label">Drain Washer<br>Replace Every Time</div></div>
+    </div><div class="df-legend">
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc0000;box-shadow:0 0 4px rgba(200,0,0,0.6)"></div>Critical</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#cc8800;box-shadow:0 0 4px rgba(200,130,0,0.6)"></div>Common</div>
+      <div class="df-leg-item"><div class="df-leg-dot" style="background:#22aa44;box-shadow:0 0 4px rgba(30,160,60,0.6)"></div>Optional</div>
+    </div>
+              </div>
+              <div class="mke-slide-footer">
+                <div class="mke-slide-pull"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mke-base">
+        <div class="mke-latch"></div>
+        <div class="mke-base-center"></div>
+        <div class="mke-latch"></div>
+      </div>
+      <div class="mke-feet">
+        <div class="mke-foot"></div>
+        <div class="mke-foot"></div>
+        <div class="mke-foot"></div>
+        <div class="mke-foot"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-label">Complete Kit</div>
+  <h2 class="section-title">THE TOOLS</h2>
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="card-number">01</div>
+      <div class="tool-icon-wrap">🔩</div>
+      <div class="tool-name">14mm Socket</div>
+      <div class="tool-detail">6-point only — fits Toyota drain plug. Never use 12-point, it rounds the head.</div>
+      <span class="tool-tag tag-critical">Critical</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">02</div>
+      <div class="tool-icon-wrap">🔧</div>
+      <div class="tool-name">3/8" Ratchet</div>
+      <div class="tool-detail">Primary drive for the drain plug. Fits tight undercarriage spaces.</div>
+      <span class="tool-tag tag-critical">Critical</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">03</div>
+      <div class="tool-icon-wrap">🔧</div>
+      <div class="tool-name">1/2" Ratchet</div>
+      <div class="tool-detail">Backup muscle for plugs that haven't moved in 5,000 miles.</div>
+      <span class="tool-tag tag-common">Common</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">04</div>
+      <div class="tool-icon-wrap">⚙️</div>
+      <div class="tool-name">67mm Filter Socket</div>
+      <div class="tool-detail">Cartridge-style oil filter cap. Fits most Toyota 4-cylinder and V6 engines.</div>
+      <span class="tool-tag tag-critical">Critical</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">05</div>
+      <div class="tool-icon-wrap">⚙️</div>
+      <div class="tool-name">64mm Filter Socket</div>
+      <div class="tool-detail">Alternate size for some Toyota engines. Keep both — save the guessing.</div>
+      <span class="tool-tag tag-common">Common</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">06</div>
+      <div class="tool-icon-wrap">📏</div>
+      <div class="tool-name">3" & 6" Extensions</div>
+      <div class="tool-detail">3/8" drive. Gets the ratchet away from tight engine bays.</div>
+      <span class="tool-tag tag-common">Common</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">07</div>
+      <div class="tool-icon-wrap">📐</div>
+      <div class="tool-name">Torque Wrench</div>
+      <div class="tool-detail">Non-negotiable. Prevents stripped threads and oil leaks. 27–33 ft-lbs.</div>
+      <span class="tool-tag tag-critical">Critical</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">08</div>
+      <div class="tool-icon-wrap">🪛</div>
+      <div class="tool-name">Strap Wrench</div>
+      <div class="tool-detail">Older Toyotas with spin-on filters. Rubber grips without scratching.</div>
+      <span class="tool-tag tag-optional">Optional</span>
+    </div>
+
+    <div class="tool-card">
+      <div class="card-number">09</div>
+      <div class="tool-icon-wrap">🔩</div>
+      <div class="tool-name">Breaker Bar (3/8")</div>
+      <div class="tool-detail">When the drain plug hasn't been touched since the last president. Breaks it loose every time.</div>
+      <span class="tool-tag tag-optional">Optional</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- TORQUE -->
+<div class="torque-section" id="torque">
+  <div class="torque-inner">
+    <div>
+      <div class="section-label">Drain Plug Spec</div>
+      <h2 class="section-title" style="font-size: clamp(28px,4vw,48px); margin-bottom: 24px;">TORQUE SPEC</h2>
+      <div class="torque-display">
+        <div class="torque-num">27–33</div>
+        <div class="torque-unit">FT·LBS</div>
+      </div>
+      <div class="torque-bar-wrap">
+        <div class="torque-bar-label">
+          <span>Too Loose — Leak Risk</span>
+          <span>Over-torqued — Strip Risk</span>
+        </div>
+        <div class="torque-track">
+          <div class="torque-fill" id="torqueFill"></div>
+        </div>
+      </div>
+    </div>
+    <div class="torque-notes">
+      <div class="torque-note">
+        <div class="torque-note-title">Always replace the crush washer</div>
+        <div class="torque-note-text">Toyota drain plugs use a copper or aluminum crush washer. Replace it every oil change — they cost $1–2 at any Toyota dealer and prevent slow leaks.</div>
+      </div>
+      <div class="torque-note">
+        <div class="torque-note-title">Hand-tighten first</div>
+        <div class="torque-note-text">Thread by hand to avoid cross-threading. Only use the torque wrench once the plug seats cleanly by hand.</div>
+      </div>
+      <div class="torque-note">
+        <div class="torque-note-title">6-point sockets only</div>
+        <div class="torque-note-text">12-point sockets grab corners, not flats. On a 14mm drain plug, that's a one-way ticket to a rounded head.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUPPLIES -->
+<section id="supplies">
+  <div class="section-label">Stock Your Tray</div>
+  <h2 class="section-title">CONSUMABLES</h2>
+  <div class="supplies-grid">
+
+    <div class="supply-card">
+      <div class="supply-dot"></div>
+      <div>
+        <div class="supply-name">Toyota Crush Washer</div>
+        <div class="supply-detail">Fits most Toyota models. Replace every single oil change — no exceptions.</div>
+        <span class="supply-part">Part #90430-12031</span>
+      </div>
+    </div>
+
+    <div class="supply-card">
+      <div class="supply-dot"></div>
+      <div>
+        <div class="supply-name">Oil Filter</div>
+        <div class="supply-detail">Confirm model before pulling into the bay. Toyota OEM or Denso recommended.</div>
+        <span class="supply-part">Verify by model/year</span>
+      </div>
+    </div>
+
+    <div class="supply-card">
+      <div class="supply-dot"></div>
+      <div>
+        <div class="supply-name">Shop Rags</div>
+        <div class="supply-detail">Keep 2–3 in the tray. Wipe the drain port before re-installing the plug.</div>
+      </div>
+    </div>
+
+    <div class="supply-card">
+      <div class="supply-dot"></div>
+      <div>
+        <div class="supply-name">Oil Absorbent Pad</div>
+        <div class="supply-detail">Place under the drain point before cracking the plug. Keeps the floor clean.</div>
+      </div>
+    </div>
+
+    <div class="supply-card">
+      <div class="supply-dot"></div>
+      <div>
+        <div class="supply-name">Nitrile Gloves</div>
+        <div class="supply-detail">Hot oil and dirty hands. Keep a few pairs in the tray corner.</div>
+      </div>
+    </div>
+
+    <div class="supply-card">
+      <div class="supply-dot"></div>
+      <div>
+        <div class="supply-name">Drain Pan (4qt min)</div>
+        <div class="supply-detail">Toyota 4-cylinders hold 4.0–4.7 qts. Have capacity before you crack the plug.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRO TIPS -->
+<div class="tips-section" id="tips">
+  <section style="padding-bottom: 0;">
+    <div class="section-label">From the Shop Floor</div>
+    <h2 class="section-title">PRO TIPS</h2>
+  </section>
+  <div style="padding: 0 8vw 100px;">
+    <div class="tips-grid">
+      <div class="tip-item">
+        <div class="tip-num">01</div>
+        <div class="tip-title">Warm engine = faster drain</div>
+        <div class="tip-text">Let the car idle 2 minutes before draining. Warm oil flows out 3× faster than cold. Don't let it sit — hot oil burns.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">02</div>
+        <div class="tip-title">67mm first, every time</div>
+        <div class="tip-text">On an unknown Toyota, try the 67mm filter socket before the 64mm. It fits 80% of models. Saves a socket swap.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">03</div>
+        <div class="tip-title">No power tools on the plug</div>
+        <div class="tip-text">Impact gun to remove is fine. Never use power tools to reinstall — always finish with a torque wrench. Impact = stripped threads.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">04</div>
+        <div class="tip-title">Label your tray</div>
+        <div class="tip-text">Add a card inside the tray with sizes, torque spec, and crush washer part number. Your future self will thank you at 6am.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TOOL<span>TRAY</span> — TOYOTA EDITION</div>
+  <div class="footer-note">Professional oil change system · Built for speed</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .tool-card, .supply-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = (el.dataset.delay || 0);
+        setTimeout(() => el.classList.add('visible'), delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.tool-card').forEach((el, i) => {
+    el.dataset.delay = i * 60;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.supply-card').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.tip-item').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  // Torque bar
+  const torqueObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.getElementById('torqueFill').classList.add('animate');
+        torqueObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  torqueObserver.observe(document.querySelector('.torque-section'));
+</script>
+
+<script>
+function toggleDrawer(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.mke-drawer.open').forEach(d => d.classList.remove('open'));
+  if (!isOpen) {
+    el.classList.add('open');
+    setTimeout(() => {
+      const panel = el.querySelector('.mke-slide-panel');
+      if (panel) panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }, 200);
+  }
+}
+</script>
+</body>
+</html>
